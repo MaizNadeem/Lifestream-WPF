@@ -16,25 +16,25 @@
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="C:\Users\maizn\OneDrive - Higher Education Commission\COMSATS SP-21\4th Semester\FA22 - Database System 1\Project\WPFApp\Images\back-image.jpg"
-                        Stretch="None"/>
+                        Stretch="Fill"/>
         </Border.Background>
 
         <Border CornerRadius="10"                    
             BorderThickness="2"
-            Opacity="0.95">
+            Opacity="0.90">
 
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#462AD8" Offset="0"/>
-                    <GradientStop Color="#DA34AE" Offset="0.75"/>
-                    <GradientStop Color="#8A16C1" Offset="1"/>
+                    <GradientStop Color="#a70000" Offset="0"/>
+                    <GradientStop Color="#ffbaba" Offset="0.75"/>
+                    <GradientStop Color="#ff0000" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
 
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color="#060531" Offset="0"/>
-                    <GradientStop Color="#1B1448" Offset="1"/>
+                    <GradientStop Color="#2f0001" Offset="0"/>
+                    <GradientStop Color="#a70000" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
 
@@ -47,86 +47,111 @@
                 <Grid Grid.Row="0">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="302*"/>
+                        <ColumnDefinition Width="439*"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="0"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="LOG IN"
                                Foreground="DarkGray"
-                               FontSize="10"
-                               FontFamily="Montserrat"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               FontFamily="Inter"                 
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="10,0,0,0"/>
+                               Margin="10,0,0,0" Grid.ColumnSpan="2"/>
 
-                    <Button x:Name="btnMinimize"                           
-                            BorderThickness="0"
-                            Content="-"
-                            Foreground="White"
-                            FontSize="16"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            Grid.Column="1"
-                            Click="btnMinimize_Click">
+                    <Border 
+                        Grid.Column="2"
+                        CornerRadius="0, 0, 0, 0"
+                        Cursor="Hand">
 
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#28AEED"/>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#278BEF"/>
+                                        <Setter Property="Background" Value="#a70000"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
-                        </Button.Style>
+                        </Border.Style>
 
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="18" Height="18"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
+                        <Button x:Name="btnMinimize"     
+                                BorderThickness="0"
+                                Content=""
+                                Foreground="White"
+                                FontSize="16"
+                                FontFamily="Gilroy"
+                                Cursor="Hand"
+                                Click="btnMinimize_Click">
 
-                    </Button>
+                            <Button.Background>
+                                <ImageBrush ImageSource="C:\Users\maizn\OneDrive - Higher Education Commission\COMSATS SP-21\4th Semester\FA22 - Database System 1\Project\WPFApp\Images\min-icon.png"
+                                Stretch="Fill"/>
+                            </Button.Background>
 
-                    <Button x:Name="btnClose"                          
-                            BorderThickness="0"
-                            Content="X"
-                            Foreground="White"
-                            FontSize="12"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            Grid.Column="2"
-                            Click="btnClose_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="13" Height="6"
+                                            CornerRadius="0"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
 
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#DA34AE"/>
+                        </Button>
+                        
+                    </Border>
+                    
+                    <Border 
+                        Grid.Column="3"
+                        CornerRadius="0, 9, 0, 0"
+                        Cursor="Hand">
+
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#C62DAE"/>
+                                        <Setter Property="Background" Value="#ff0000"/>
+                                        <Setter Property="Opacity" Value="1"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
-                        </Button.Style>
+                        </Border.Style>
 
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="18" Height="18"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+
+                        <Button x:Name="btnClose"
+                                BorderThickness="0"
+                                Content=""
+                                Foreground="White"
+                                FontSize="18"
+                                FontFamily="Gilroy"
+                                Cursor="Hand"
+                                Click="btnClose_Click">
+
+                            <Button.Background>
+                                <ImageBrush ImageSource="C:\Users\maizn\OneDrive - Higher Education Commission\COMSATS SP-21\4th Semester\FA22 - Database System 1\Project\WPFApp\Images\close-icon.png"
+                            Stretch="Uniform"/>
+                            </Button.Background>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="12" Height="25"
+                                            CornerRadius="0, 0, 0, 0"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Border>
                 </Grid>
 
                 <StackPanel Width="220"
@@ -137,14 +162,14 @@
                     <Image Source="C:\Users\maizn\OneDrive - Higher Education Commission\COMSATS SP-21\4th Semester\FA22 - Database System 1\Project\WPFApp\Images\Logo.png"
                            Width="100" Height="100"/>
 
-                    <TextBlock Text="RJ CODE"
+                    <TextBlock
                                Foreground="White"
                                FontSize="25"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center" Text="LIFESTREAM"/>
 
-                    <TextBlock Text="Learning to code is useful no matter what your career ambitions are."
+                    <TextBlock Text="Lifestream provides"
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Medium"
