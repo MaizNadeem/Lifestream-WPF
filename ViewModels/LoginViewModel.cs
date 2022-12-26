@@ -8,9 +8,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WPFApp.Models;
+using WPFApp.Repositories;
 
 namespace WPFApp.ViewModels {
-    public class LoginViewModel : ViewModelBase {
+    public class LoginViewModel : ViewModelBase
+    {
+        //Fields
         private string _username;
         private SecureString _password;
         private string _errorMessage;
