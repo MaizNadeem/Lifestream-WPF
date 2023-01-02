@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFApp.Models;
-using WPFApp.Repositories;
-using WPFApp.ViewModels;
 
 namespace WPFApp.Views
 {
     /// <summary>
-    /// Interaction logic for Customer.xaml
+    /// Interaction logic for PatientView.xaml
     /// </summary>
-    public partial class DonorView : UserControl
+    public partial class PatientView : UserControl
     {
-        public DonorView()
+        public PatientView()
         {
             InitializeComponent();
-            DonorViewModel donorViewModel= new DonorViewModel();
-            DonorGrid.ItemsSource = donorViewModel.Donor;
         }
     }
 }

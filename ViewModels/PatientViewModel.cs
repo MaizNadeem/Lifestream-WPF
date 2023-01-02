@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WPFApp.ViewModels
 {
-    public class CustomerViewModel : ViewModelBase
+    public class PatientViewModel : ViewModelBase
     {
+
     }
 }

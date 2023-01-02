@@ -8,5 +8,6 @@ namespace WPFApp.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
+
     }
 }

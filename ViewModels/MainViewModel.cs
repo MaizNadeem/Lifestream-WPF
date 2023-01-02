@@ -82,7 +82,8 @@ namespace WPFApp.ViewModels
 
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
-        public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowDonorViewCommand { get; }
+        public ICommand ShowPatientViewCommand { get; }
 
         public MainViewModel()
         {
@@ -91,19 +92,13 @@ namespace WPFApp.ViewModels
 
             //Initialize commands
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
-            ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
+            ShowDonorViewCommand = new ViewModelCommand(ExecuteShowDonorViewCommand);
+            ShowPatientViewCommand = new ViewModelCommand(ExecuteShowPatientViewCommand);
 
             //Default view
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
-        }
-
-        private void ExecuteShowCustomerViewCommand(object obj)
-        {
-            CurrentChildView = new CustomerViewModel();
-            Caption = "Customers";
-            Icon = IconChar.UserGroup;
         }
 
         private void ExecuteShowHomeViewCommand(object obj)
@@ -112,6 +107,18 @@ namespace WPFApp.ViewModels
             Caption = "Dashboard";
             Icon = IconChar.Home;
         }
+        private void ExecuteShowDonorViewCommand(object obj)
+        {
+            CurrentChildView = new DonorViewModel();
+            Caption = "Donors";
+            Icon = IconChar.UserGroup;
+        }
+        private void ExecuteShowPatientViewCommand(object obj)
+        {
+            CurrentChildView = new PatientViewModel();
+            Caption = "Patients";
+            Icon = IconChar.UserGroup;
+        }
 
         private void LoadCurrentUserData()
         {
@@ -119,7 +126,7 @@ namespace WPFApp.ViewModels
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $"Welcome {user.Username} ;)";
+                CurrentUserAccount.DisplayName = $"Welcome {user.Username}";
                 CurrentUserAccount.ProfilePicture = null;
             }
             else
