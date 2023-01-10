@@ -4,12 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFApp.Views" 
+             xmlns:viewModel="clr-namespace:WPFApp.ViewModels"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewModel:PatientViewModel/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <XmlDataProvider x:Key="MockList" XPath="/MockObjects/*" >
+            <x:XData >
+                <MockObjects xmlns="">
+                    <MockObject ID="756"  Name="Andrea G Fuget" Type="A+" DOB="7/6/1972" Gender="Female" Frequency="Regular" Contact="215-435-7455" />
+                    <MockObject ID="143"  Name="Amelia H Horrender" Type="A+" DOB="11/5/1997" Gender="Female" Frequency="Occasional" Contact="215-435-7455" />
+                    />
+                </MockObjects>
+            </x:XData>
+        </XmlDataProvider>
+    </UserControl.Resources>
+
+
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -20,29 +41,44 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
-                <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="{StaticResource plainTextColor3}"/>
+                <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="white"/>
                 <TextBox Text="Search..."   
-                    FontSize="13"
-                         Height="24"
-                           Width="300"
+                    FontSize="16"
+                         Height="41"
+                           Width="286"
                            Background="Transparent"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
-                             Foreground="{StaticResource plainTextColor3}"
+                             Foreground="white"
                              CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
                              BorderThickness="0,0,0,1"                             
                              VerticalContentAlignment="Center"
-                             Margin="5,5,0,0"></TextBox>
+                             Margin="5,0,0,0">
+                </TextBox>
+                <ComboBox
+                    x:Name="BloodTypeCombo" Margin="10,0,0,0" Width="170" Height="38" Text="--Select Type--"
+                    FontFamily="Montserrat"
+                    Focusable="False" IsEditable="True" IsReadOnly="True">
+                    <ComboBoxItem Name="Item1">All Blood Types</ComboBoxItem>
+                    <ComboBoxItem Name="Item2">A+</ComboBoxItem>
+                    <ComboBoxItem Name="Item3">A-</ComboBoxItem>
+                    <ComboBoxItem Name="Item4">B+</ComboBoxItem>
+                    <ComboBoxItem Name="Item5">B-</ComboBoxItem>
+                    <ComboBoxItem Name="Item6">O+</ComboBoxItem>
+                    <ComboBoxItem Name="Item7">O-</ComboBoxItem>
+                    <ComboBoxItem Name="Item8">AB+</ComboBoxItem>
+                    <ComboBoxItem Name="Item9">AB-</ComboBoxItem>
+                </ComboBox>
             </StackPanel>
-            <Button Grid.Column="1"                       
-                            Content="Search"           
+            <Button Grid.Column="1"                           
+                            Content="Search"                            
                             FontSize="12"
                             FontFamily="Montserrat"
                             Cursor="Hand"
                             BorderThickness="0"
                             Foreground="White"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#a51214"/>
@@ -70,28 +106,30 @@
         <Border Grid.Row="1"
                 Background="#990000"
                 CornerRadius="10" 
-                Padding="10">
-            <DataGrid ColumnWidth="*"
+                Padding="10"
+                DataContext="{Binding Source={StaticResource MockList}}">
+            <ui:DataGrid Name="PatientGrid" 
+                  ColumnWidth="*"
                   Background="#990000"
-                  BorderThickness="0">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Padding" Value="10,0,0,10"/>
-                        <Setter Property="FontFamily" Value="Montserrat"/>
-                        <Setter Property="FontSize" Value="15"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
+                  BorderThickness="0"
+                  IsReadOnly="True"
+                  FontFamily="Montserrat"
+                  ScrollViewer.CanContentScroll="False"
+                  HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" 
+                  ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" 
+                  AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="ID" HeaderStringFormat=""/>
-                    <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="First name"/>
-                    <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Last name"/>
-                    <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Phone"/>
-                    <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Number"/>
-                    <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Address"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding XPath=@ID}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding XPath=@Name}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Blood Type" Binding="{Binding XPath=@Type}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding XPath=@DOB}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Gender" Binding="{Binding XPath=@Gender}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding XPath=@Frequency}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Contact" Binding="{Binding XPath=@Contact}"></DataGridTextColumn>
                 </DataGrid.Columns>
-            </DataGrid>
+            </ui:DataGrid>
         </Border>
     </Grid>
+
+
 </UserControl>

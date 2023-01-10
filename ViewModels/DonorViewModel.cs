@@ -12,10 +12,10 @@ namespace WPFApp.ViewModels
     public class DonorViewModel : ViewModelBase
     {
         public ObservableCollection<DonorModel> Donor;
-        public DonorRepository donorRepository;
+        
         public DonorViewModel() 
         {
-            donorRepository= new DonorRepository();
+            DonorRepository donorRepository= new DonorRepository();
             Donor = donorRepository.DonorGridBind();
         }
     }

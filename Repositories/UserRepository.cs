@@ -70,7 +70,7 @@ namespace WPFApp.Repositories
                     }
                 }
             }
-            return user; 
+            return user;
         }
         public void Remove(int id)
         {

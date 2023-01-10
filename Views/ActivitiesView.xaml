@@ -1,0 +1,380 @@
+﻿<UserControl x:Class="WPFApp.Views.ActivitiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views"
+             xmlns:viewModel="clr-namespace:WPFApp.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    <UserControl.DataContext>
+        <viewModel:ActivitiesViewModel/>
+    </UserControl.DataContext>
+
+    <Grid VerticalAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Manage Appointments"
+                   Grid.Row="0"
+                   Foreground="White"
+                   FontFamily="Montserrat"
+                   FontSize="18"
+                   FontWeight="SemiBold" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20">
+        </TextBlock>
+        <Grid HorizontalAlignment="Center" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Donor ID"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Appointment Date"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <DatePicker  Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Appointment Time"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Grid.Column="4"
+                    Content="Create Appointment"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="0,9,0,0">
+            </Button>
+        </Grid>
+        <Grid HorizontalAlignment="Center" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="239" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Enter Appointment ID"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Grid.Column="3"
+                    Content="Edit Appointment"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="54,14,0,0" VerticalAlignment="Top"/>
+            <Button Grid.Column="4"
+                    Content="Delete Appointment"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="0,9,0,0">
+            </Button>
+        </Grid>
+        <TextBlock Text="Manage Donations"
+                   Grid.Row="3"
+                   Foreground="White"
+                   FontFamily="Montserrat"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0">
+        </TextBlock>
+        <Grid HorizontalAlignment="Center" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Appointment ID"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Bag Quantity"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Grid.Column="4"
+                    Content="Generate Receipt"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="0,9,0,0">
+            </Button>
+        </Grid>
+        <TextBlock Text="Manage Requests"
+                   Grid.Row="5"
+                   Foreground="White"
+                   FontFamily="Montserrat"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0">
+        </TextBlock>
+        <Grid HorizontalAlignment="Center" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Patient ID"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Required Date"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <DatePicker  Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Required Quantity"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Grid.Column="4"
+                    Content="Create Request"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="0,9,0,0">
+            </Button>
+        </Grid>
+        <Grid HorizontalAlignment="Center" Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="239" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Enter Request ID"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Grid.Column="3"
+                    Content="Edit Request"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="90,14,0,0" VerticalAlignment="Top"/>
+            <Button Grid.Column="4"
+                    Content="Delete Request"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="0,9,0,0">
+            </Button>
+        </Grid>
+        <TextBlock Text="Manage Transfusions"
+                   Grid.Row="8"
+                   Foreground="White"
+                   FontFamily="Montserrat"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0">
+        </TextBlock>
+        <Grid HorizontalAlignment="Center" Grid.Row="9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
+                        Margin="0,0,10,5">
+                <TextBlock Text="Request ID"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="Montserrat"
+                           FontSize="12"/>
+                <TextBox     Width="188" Height="29"
+                             FontSize="10"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="white"
+                             CaretBrush="{StaticResource plainTextColor3}"
+                             BorderBrush="white"
+                             BorderThickness="0,0,0,1"                             
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Grid.Column="4"
+                    Content="Generate Receipt"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    Margin="0,9,0,0">
+            </Button>
+        </Grid>
+
+    </Grid>
+
+</UserControl>

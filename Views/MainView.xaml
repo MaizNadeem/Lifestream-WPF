@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:WPFApp.ViewModels"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="MainView" Height="700" Width="1300"
+        Title="MainView" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
@@ -29,6 +29,37 @@
         <DataTemplate DataType="{x:Type viewModel:PatientViewModel}">
             <local:PatientView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:DonorsInfoViewModel}">
+            <local:DonorsInfoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:PatientsInfoViewModel}">
+            <local:PatientsInfoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ActivitiesViewModel}">
+            <local:ActivitiesView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AppointmentsViewModel}">
+            <local:AppointmentsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:RequestViewModel}">
+            <local:RequestView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ReceiptViewModel}">
+            <local:ReceiptView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:StockViewModel}">
+            <local:StockView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:StaffViewModel}">
+            <local:StaffView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:StaffsInfoViewModel}">
+            <local:StaffsInfoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProfileViewModel}">
+            <local:ProfileView/>
+        </DataTemplate>
+
 
     </Window.Resources>
 
@@ -57,6 +88,7 @@
                         <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
 
                     <!--Logo-->
@@ -89,7 +121,7 @@
                                  Command="{Binding ShowDonorViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Donors" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="View Donors" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
@@ -97,10 +129,84 @@
                                  Command="{Binding ShowPatientViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="BedPulse" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Patients" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="View Patients" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                </StackPanel>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color2}"
+                                 Command="{Binding ShowDonorsInfoViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="List" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Donor's Info" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color2}"
+                                 Command="{Binding ShowPatientsInfoViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="List" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Patient's Info" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color2}"
+                                 Command="{Binding ShowActivitiesViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="CalendarCheck" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Activities" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                Tag="{StaticResource color2}"
+                                Command="{Binding ShowAppointmentsViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="PenToSquare" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Appointments" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                            Tag="{StaticResource color2}"
+                            Command="{Binding ShowRequestViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="HandHoldingMedical" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Requests" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                        Tag="{StaticResource color2}"
+                        Command="{Binding ShowReceiptViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Receipt" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Receipts" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color2}"
+                                 Command="{Binding ShowStockViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="BoxesStacked" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="View Stock" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                Tag="{StaticResource color2}"
+                                Command="{Binding ShowStaffViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="ClipboardUser" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="View Staff" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                            Tag="{StaticResource color2}"
+                            Command="{Binding ShowStaffsInfoViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="List" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Staff's Info" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
 
             <!--Main Section-->
@@ -181,6 +287,7 @@
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
                                 <Button Style="{StaticResource iconButton}"
+                                        Command="{Binding ShowProfileViewCommand}"
                                     Tag="{StaticResource color1}">
                                     <fa:IconImage Icon="AngleDown"
                                               Height="12" Width="12"
@@ -192,7 +299,7 @@
                                        FontSize="12"
                                        VerticalAlignment="Center"/>
                             <Ellipse Height="35" Width="35"
-                                     Stroke="{StaticResource color2}"
+                                     Stroke="{StaticResource titleColor3}"
                                      StrokeThickness="2"
                                      Margin="10,0,10,0">
                                 <Ellipse.Fill>

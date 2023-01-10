@@ -84,6 +84,16 @@ namespace WPFApp.ViewModels
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowDonorViewCommand { get; }
         public ICommand ShowPatientViewCommand { get; }
+        public ICommand ShowDonorsInfoViewCommand { get; }
+        public ICommand ShowPatientsInfoViewCommand { get; }
+        public ICommand ShowActivitiesViewCommand { get; }
+        public ICommand ShowAppointmentsViewCommand { get; }
+        public ICommand ShowRequestViewCommand { get; }
+        public ICommand ShowReceiptViewCommand { get; }
+        public ICommand ShowStockViewCommand { get; }
+        public ICommand ShowStaffViewCommand { get; }
+        public ICommand ShowStaffsInfoViewCommand { get; }
+        public ICommand ShowProfileViewCommand { get; }
 
         public MainViewModel()
         {
@@ -94,6 +104,16 @@ namespace WPFApp.ViewModels
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowDonorViewCommand = new ViewModelCommand(ExecuteShowDonorViewCommand);
             ShowPatientViewCommand = new ViewModelCommand(ExecuteShowPatientViewCommand);
+            ShowDonorsInfoViewCommand = new ViewModelCommand(ExecuteShowDonorsInfoViewCommand);
+            ShowPatientsInfoViewCommand = new ViewModelCommand(ExecuteShowPatientsInfoViewCommand);
+            ShowActivitiesViewCommand = new ViewModelCommand(ExecuteShowActivitiesViewCommand);
+            ShowAppointmentsViewCommand = new ViewModelCommand(ExecuteShowAppointmentsViewCommand);
+            ShowRequestViewCommand = new ViewModelCommand(ExecuteShowRequestViewCommand);
+            ShowReceiptViewCommand = new ViewModelCommand(ExecuteShowReceiptViewCommand);
+            ShowStockViewCommand = new ViewModelCommand(ExecuteShowStockViewCommand);
+            ShowStaffViewCommand = new ViewModelCommand(ExecuteShowStaffViewCommand);
+            ShowStaffsInfoViewCommand = new ViewModelCommand(ExecuteShowStaffsInfoViewCommand);
+            ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
 
             //Default view
             ExecuteShowHomeViewCommand(null);
@@ -117,9 +137,68 @@ namespace WPFApp.ViewModels
         {
             CurrentChildView = new PatientViewModel();
             Caption = "Patients";
-            Icon = IconChar.UserGroup;
+            Icon = IconChar.BedPulse;
         }
-
+        private void ExecuteShowDonorsInfoViewCommand(object obj)
+        {
+            CurrentChildView = new DonorsInfoViewModel();
+            Caption = "Donor's Information";
+            Icon = IconChar.List;
+        }
+        private void ExecuteShowPatientsInfoViewCommand(object obj)
+        {
+            CurrentChildView = new PatientsInfoViewModel();
+            Caption = "Patient's Information";
+            Icon = IconChar.List;
+        }
+        private void ExecuteShowActivitiesViewCommand(object obj)
+        {
+            CurrentChildView = new ActivitiesViewModel();
+            Caption = "Manage Operations";
+            Icon = IconChar.CalendarCheck;
+        }
+        private void ExecuteShowAppointmentsViewCommand(object obj)
+        {
+            CurrentChildView = new AppointmentsViewModel();
+            Caption = "Manage Appointments";
+            Icon = IconChar.PenToSquare;
+        }
+        private void ExecuteShowRequestViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel();
+            Caption = "Manage Requests";
+            Icon = IconChar.HandHoldingMedical;
+        }
+        private void ExecuteShowReceiptViewCommand(object obj)
+        {
+            CurrentChildView = new ReceiptViewModel();
+            Caption = "Manage Receipts";
+            Icon = IconChar.Receipt;
+        }
+        private void ExecuteShowStockViewCommand(object obj)
+        {
+            CurrentChildView = new StockViewModel();
+            Caption = "Current Stock";
+            Icon = IconChar.BoxesStacked;
+        }
+        private void ExecuteShowStaffViewCommand(object obj)
+        {
+            CurrentChildView = new StaffViewModel();
+            Caption = "View Staff";
+            Icon = IconChar.ClipboardUser;
+        }
+        private void ExecuteShowStaffsInfoViewCommand(object obj)
+        {
+            CurrentChildView = new StaffsInfoViewModel();
+            Caption = "Staff's Information";
+            Icon = IconChar.List;
+        }
+        private void ExecuteShowProfileViewCommand(object obj)
+        {
+            CurrentChildView = new ProfileViewModel();
+            Caption = "Your Profile";
+            Icon = IconChar.User;
+        }
         private void LoadCurrentUserData()
         {
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);

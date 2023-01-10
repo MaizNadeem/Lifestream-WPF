@@ -24,11 +24,24 @@ namespace WPFApp.Views
     /// </summary>
     public partial class DonorView : UserControl
     {
+        DonorViewModel donorViewModel = new DonorViewModel();
         public DonorView()
         {
             InitializeComponent();
-            DonorViewModel donorViewModel= new DonorViewModel();
-            DonorGrid.ItemsSource = donorViewModel.Donor;
+            //DonorGrid.ItemsSource = donorViewModel.Donor;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (BloodTypeCombo.Text != "All Blood Types")
+                DonorGrid.ItemsSource = donorViewModel.Donor.Where(s => s.BloodType == BloodTypeCombo.Text).ToList();
+            else
+                DonorGrid.ItemsSource = donorViewModel.Donor;
+        }
+
+        private void BloodTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

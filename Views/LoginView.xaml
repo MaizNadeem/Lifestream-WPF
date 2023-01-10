@@ -95,7 +95,7 @@
 
                         <Button x:Name="btnMinimize"      
                                 Cursor="Hand"         
-                                Click="btnMinimize_Click">
+                                Click="btnMinimize_Click" HorizontalAlignment="Center">
 
                             <Button.Background>
                                 <ImageBrush ImageSource="/Images/min-icon.png"
@@ -137,7 +137,7 @@
 
                         <Button x:Name="btnClose" 
                                 Cursor="Hand"
-                                Click="btnClose_Click">
+                                Click="btnClose_Click" HorizontalAlignment="Center">
 
                             <Button.Background> 
                                 <ImageBrush ImageSource="/Images/close-icon.png"
