@@ -20,7 +20,7 @@
 </p>
 
 A standalone desktop application supported on Windows Platform.
-More about the project here: [Documentation](../Documentation.pdf) 
+More about the project here: [Documentation](Documentation.pdf) 
 
 <hr></hr>
 <h4 align="center"> © M. Maiz Nadeem </h4>
