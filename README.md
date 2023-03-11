@@ -3,7 +3,7 @@
 ## Entity Relationship Diagram (ERD)
 
 <p align="center">
-  <img src="https://github.com/MaizNadeem/WPFApp/Frontend Screenshots/blob/main/ERD.png?raw=true"
+  <img src="https://github.com/MaizNadeem/WPFApp/blob/0941cffbd9838df4a59d9e02082daf9fe07066ef/Frontend%20Screenshots/ERD.png"
   alt="ERD Image" />
 </p>
 
