@@ -13,16 +13,16 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
-            <Color x:Key="SystemAccentColor">#ce070f</Color>
+            <Color x:Key="SystemAccentColor">#00065c</Color>
             <SolidColorBrush x:Key="SystemColorControlAccentBrush0"
 					 Color="{StaticResource SystemAccentColor}" />
-            <Color x:Key="SystemAccentColorPrimary">#ce070f</Color>
+            <Color x:Key="SystemAccentColorPrimary">#00065c</Color>
             <SolidColorBrush x:Key="SystemColorControlAccentBrush1"
 					 Color="{StaticResource SystemAccentColorPrimary}" />
-            <Color x:Key="SystemAccentColorSecondary">#ce070f</Color>
+            <Color x:Key="SystemAccentColorSecondary">#00065c</Color>
             <SolidColorBrush x:Key="SystemColorControlAccentBrush2"
 					 Color="{StaticResource SystemAccentColorSecondary}" />
-            <Color x:Key="SystemAccentColorTertiary">#ce070f</Color>
+            <Color x:Key="SystemAccentColorTertiary">#00065c</Color>
             <SolidColorBrush x:Key="SystemColorControlAccentBrush3"
 					 Color="{StaticResource SystemAccentColorTertiary}" />
         </ResourceDictionary>

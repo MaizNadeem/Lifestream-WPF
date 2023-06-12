@@ -2,15 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--Background Colors-->
-    <Color x:Key="primaryBackColor1">#4c0000</Color>
-    <Color x:Key="primaryBackColor2">#990000</Color>
-    <Color x:Key="secondaryBackColor1">#4c0000</Color>
-    <Color x:Key="secondaryBackColor2">#990000</Color>
+    <Color x:Key="primaryBackColor1">#000330</Color>
+    <Color x:Key="primaryBackColor2">#00065c</Color>
+    <Color x:Key="secondaryBackColor1">#000330</Color>
+    <Color x:Key="secondaryBackColor2">#00065c</Color>
 
     <!--Window Border Colors-->
-    <Color x:Key="winBorderColor1">#990000</Color>
-    <Color x:Key="winBorderColor2">#ff8080</Color>
-    <Color x:Key="winBorderColor3">#ff0000</Color>
+    <Color x:Key="winBorderColor1">#00065c</Color>
+    <Color x:Key="winBorderColor2">#3845ff</Color>
+    <Color x:Key="winBorderColor3">#000dcc</Color>
 
     <!--Color Palette-->
     <SolidColorBrush x:Key="color1" Color="#ffffff"/>
@@ -26,16 +26,16 @@
 
     <!--Font Colors-->
     <SolidColorBrush x:Key="titleColor1" Color="#ffffff"/>
-    <SolidColorBrush x:Key="titleColor2" Color="#ffe6e6"/>
-    <SolidColorBrush x:Key="titleColor3" Color="#ffcccc"/>
-    <SolidColorBrush x:Key="plainTextColor1" Color="#ffb3b3"/>
-    <SolidColorBrush x:Key="plainTextColor2" Color="#ff9999"/>
-    <SolidColorBrush x:Key="plainTextColor3" Color="#ff8080"/>
+    <SolidColorBrush x:Key="titleColor2" Color="#3845ff"/>
+    <SolidColorBrush x:Key="titleColor3" Color="#3845ff"/>
+    <SolidColorBrush x:Key="plainTextColor1" Color="#3845ff"/>
+    <SolidColorBrush x:Key="plainTextColor2" Color="#3845ff"/>
+    <SolidColorBrush x:Key="plainTextColor3" Color="#3845ff"/>
 
     <!--Panel Colors-->
-    <SolidColorBrush x:Key="panelColor" Color="#800000"/>
-    <SolidColorBrush x:Key="panelOverColor" Color="#b30000"/>
-    <SolidColorBrush x:Key="panelActiveColor" Color="#990000"/>
+    <SolidColorBrush x:Key="panelColor" Color="#000330"/>
+    <SolidColorBrush x:Key="panelOverColor" Color="#00065c"/>
+    <SolidColorBrush x:Key="panelActiveColor" Color="#000330"/>
 
     <!--Button Colors-->
     <!--TextBox Colors-->
