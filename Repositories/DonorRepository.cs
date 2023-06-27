@@ -18,21 +18,20 @@ namespace WPFApp.Repositories
 
         public ObservableCollection<DonorModel> DonorGridBind()
         {
-
             Donor = null;
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select *from [Donor]";
+                command.CommandText = "SELECT [Donor_ID], [Donor_Name], [Donor_DOB], [Donor_Gender], [Donor_BloodType], [Donor_Contact], [Donor_Address], [Donor_Frequency], [Donor_LastDonated] FROM [BloodBank].[dbo].[Donor]";
 
                 DataTable dt = new DataTable();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(command);
                 da.Fill(ds, "Donor");
 
-                if (Donor == null ) 
+                if (Donor == null)
                 {
                     Donor = new ObservableCollection<DonorModel>();
                 }
@@ -41,11 +40,15 @@ namespace WPFApp.Repositories
                 {
                     Donor.Add(new DonorModel()
                     {
-                        Id = Convert.ToInt32(reader[0].ToString()),
-                        Name = reader[1].ToString(),
-                        DOB = Convert.ToDateTime(reader[2].ToString()),
-                        Gender = reader[3].ToString(),
-                        BloodType = reader[4].ToString(),
+                        ID = Convert.ToInt32(reader["Donor_ID"]),
+                        Name = reader["Donor_Name"].ToString(),
+                        DOB = Convert.ToDateTime(reader["Donor_DOB"]),
+                        Gender = reader["Donor_Gender"].ToString(),
+                        BloodType = reader["Donor_BloodType"].ToString(),
+                        Contact = reader["Donor_Contact"].ToString(),
+                        Address = reader["Donor_Address"].ToString(),
+                        Frequency = reader["Donor_Frequency"].ToString(),
+                        LastDonated = Convert.ToDateTime(reader["Donor_LastDonated"])
                     });
                 }
                 da.Dispose();

@@ -12,23 +12,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPFApp.Models;
 using WPFApp.Repositories;
 using WPFApp.ViewModels;
 
 namespace WPFApp.Views
 {
-    /// <summary>
-    /// Interaction logic for Customer.xaml
-    /// </summary>
     public partial class DonorView : UserControl
     {
         DonorViewModel donorViewModel = new DonorViewModel();
+
         public DonorView()
         {
             InitializeComponent();
-            //DonorGrid.ItemsSource = donorViewModel.Donor;
+            DonorGrid.ItemsSource = donorViewModel.Donor;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -37,6 +34,9 @@ namespace WPFApp.Views
                 DonorGrid.ItemsSource = donorViewModel.Donor.Where(s => s.BloodType == BloodTypeCombo.Text).ToList();
             else
                 DonorGrid.ItemsSource = donorViewModel.Donor;
+
+            Console.WriteLine("Data:\n");
+            Console.WriteLine(donorViewModel.Donor[0].Name);
         }
 
         private void BloodTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

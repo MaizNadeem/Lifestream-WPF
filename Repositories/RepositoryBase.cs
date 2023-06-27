@@ -12,7 +12,7 @@ namespace WPFApp.Repositories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=(local); Database=BloodBank; Integrated Security=true";
+            _connectionString = "Server=MUHAMMAD-MAIZ-N\\MSSQLSERVER22; Database=BloodBank; Integrated Security=true";
         }
         protected SqlConnection GetConnection()
         {

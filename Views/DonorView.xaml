@@ -13,18 +13,6 @@
     <UserControl.DataContext>
         <viewModel:DonorViewModel/>
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <XmlDataProvider x:Key="MockList" XPath="/MockObjects/*" >
-            <x:XData >
-                <MockObjects xmlns="">
-                    <MockObject  ID="513" Name="Betty J Cruz" Type="AB+" DOB="7/6/1972" Gender="Female" Frequency="Regular" Contact="215-435-7455" />
-                    <MockObject  ID="424" Name="Bernard H Rossiter" Type="AB+" DOB="11/5/1997" Gender="Male" Frequency="Occasional" Contact="215-435-7455" />
-                    />
-                </MockObjects>
-            </x:XData>
-        </XmlDataProvider>
-    </UserControl.Resources>
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -105,27 +93,56 @@
                 Background="#990000"
                 CornerRadius="10" 
                 Padding="10"
-                DataContext="{Binding Source={StaticResource MockList}}">
-            <ui:DataGrid Name="DonorGrid" 
-                         ColumnWidth="*"
-                         Background="#990000"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         FontFamily="Montserrat"
-                         ScrollViewer.CanContentScroll="False"
-                         HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" 
-                         ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" 
-                         AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding XPath=@ID}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Name" Binding="{Binding XPath=@Name}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Blood Type" Binding="{Binding XPath=@Type}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding XPath=@DOB}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Gender" Binding="{Binding XPath=@Gender}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Frequency" Binding="{Binding XPath=@Frequency}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Contact" Binding="{Binding XPath=@Contact}"></DataGridTextColumn>
-                </DataGrid.Columns>
+                >
+            <ui:DataGrid Name="DonorGrid"
+             ColumnWidth="Auto"
+             Background="#990000"
+             BorderThickness="0"
+             IsReadOnly="True"
+             FontFamily="Calibri"
+             ScrollViewer.CanContentScroll="False"
+             HorizontalAlignment="Stretch"
+             Margin="10"
+             VerticalAlignment="Stretch"
+             AutoGenerateColumns="False">
+                <ui:DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontFamily" Value="Montserrat" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Background" Value="#990000" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="0 10"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="FontSize" Value="10" />
+                        <Setter Property="Margin" Value="0,5" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#E2E2E2" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:DataGrid.Resources>
+                <ui:DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="*" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                    <DataGridTextColumn Header="Blood Type" Binding="{Binding BloodType}" Width="*" />
+                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding DOB, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="*" />
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency}" Width="*" />
+                    <DataGridTextColumn Header="Contact" Binding="{Binding Contact}" Width="*" />
+                    <DataGridTextColumn Header="Last Donated" Binding="{Binding LastDonated, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
+                </ui:DataGrid.Columns>
             </ui:DataGrid>
+
         </Border>
     </Grid>
 
