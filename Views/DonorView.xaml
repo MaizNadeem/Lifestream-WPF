@@ -64,7 +64,8 @@
                             Cursor="Hand"
                             BorderThickness="0"
                             Foreground="White"
-                            VerticalAlignment="Center" Click="Button_Click">
+                            VerticalAlignment="Center"
+                            Click="Button_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#a51214"/>

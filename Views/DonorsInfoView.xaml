@@ -44,15 +44,17 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="200" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="NameTextBox" 
+                            Width="200" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"
+                            TextChanged="TextBox_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -61,7 +63,8 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <DatePicker  Width="200" Height="28"
+                <DatePicker  x:Name="DOBDatePicker"
+                             Width="200" Height="28"
                              FontSize="10"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
@@ -113,15 +116,17 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="411" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="ContactTextBox" 
+                            Width="411" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"
+                            TextChanged="TextBox_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -130,7 +135,8 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <DatePicker  Width="255" Height="28"
+                <DatePicker  x:Name="LastDonatedDatePicker"
+                             Width="255" Height="28"
                              FontSize="10"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
@@ -148,7 +154,8 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="411" Height="29"
+                <TextBox     x:Name="AddressTextBox"
+                             Width="411" Height="29"
                              FontSize="10"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
@@ -156,7 +163,8 @@
                              CaretBrush="{StaticResource plainTextColor3}"
                              BorderBrush="white"
                              BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                             VerticalContentAlignment="Center"
+                             TextChanged="TextBox_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -174,6 +182,7 @@
         </StackPanel>
         <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button
+                x:Name="AddButton"
                 Content="Add Donor"
                 HorizontalAlignment="Center"
                 Height="40"
@@ -181,9 +190,11 @@
                 FontSize="14"
                 FontWeight="Medium"
                 FontFamily="Montserrat"
-                Cursor="Hand">
+                Cursor="Hand"
+                Click="AddButton_Click">
             </Button>
             <Button
+                x:Name="CancelButton"
                 Margin="10,0,0,0"
                 Content="Cancel"
                 HorizontalAlignment="Center"
@@ -193,7 +204,8 @@
                 FontWeight="Medium"
                 FontFamily="Montserrat"
                 IsEnabled="False"
-                Cursor="Hand">
+                Cursor="Hand"
+                Click="CancelButton_Click">
             </Button>
         </StackPanel>
 
@@ -214,21 +226,25 @@
                        Foreground="White"
                        FontFamily="Montserrat"
                        FontSize="16"/>
-            <TextBox     Width="150" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             Margin="20,0,0,0"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+            <TextBox
+                    x:Name="DonorIdTextBox"
+                    Width="150" Height="29"
+                    FontSize="10"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"                            
+                    Foreground="white"
+                    CaretBrush="{StaticResource plainTextColor3}"
+                    BorderBrush="white"
+                    Margin="20,0,0,0"
+                    BorderThickness="0,0,0,1"                             
+                    VerticalContentAlignment="Center"
+                    TextChanged="TextBox_TextChanged"/>
 
         </StackPanel>
 
         <StackPanel Grid.Row="7" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button
+                x:Name="UpdateButton"
                 Content="Update"
                 HorizontalAlignment="Center"
                 Height="40"
@@ -236,9 +252,11 @@
                 FontSize="14"
                 FontWeight="Medium"
                 FontFamily="Montserrat"
-                Cursor="Hand">
+                Cursor="Hand"
+                Click="UpdateButton_Click">
             </Button>
             <Button
+                x:Name="DeleteButton"
                 Margin="10,0,0,0"
                 Content="Delete"
                 HorizontalAlignment="Center"
@@ -247,9 +265,20 @@
                 FontSize="14"
                 FontWeight="Medium"
                 FontFamily="Montserrat"
-                Cursor="Hand">
+                Cursor="Hand"
+                Click="DeleteButton_Click">
             </Button>
         </StackPanel>
+
+        <TextBlock x:Name="StatusTextBlock"
+                   Grid.Row="8"
+                   Foreground="Yellow"
+                   FontFamily="Montserrat"
+                   FontSize="12"
+                   FontWeight="Normal"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="0,10,0,0"/>
 
     </Grid>
 

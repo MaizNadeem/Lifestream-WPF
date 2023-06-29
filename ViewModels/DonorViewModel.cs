@@ -13,7 +13,7 @@ namespace WPFApp.ViewModels
     {
         public ObservableCollection<DonorModel> Donor;
         
-        public DonorViewModel() 
+        public DonorViewModel()
         {
             DonorRepository donorRepository= new DonorRepository();
             Donor = donorRepository.DonorGridBind();

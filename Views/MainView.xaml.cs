@@ -53,8 +53,16 @@ namespace WPFApp.Views
             private void btnMaximize_Click(object sender, RoutedEventArgs e)
             {
                 if (this.WindowState == WindowState.Normal)
+                {
                     this.WindowState = WindowState.Maximized;
-                else this.WindowState = WindowState.Normal;
+                    pnlControlBar.Margin = new Thickness(0, 10, 0, 0);
+                }
+                else
+                {
+                    this.WindowState = WindowState.Normal;
+                    pnlControlBar.Margin = new Thickness(0);
+                }
             }
+
     }
 }

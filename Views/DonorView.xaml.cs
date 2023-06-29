@@ -34,9 +34,6 @@ namespace WPFApp.Views
                 DonorGrid.ItemsSource = donorViewModel.Donor.Where(s => s.BloodType == BloodTypeCombo.Text).ToList();
             else
                 DonorGrid.ItemsSource = donorViewModel.Donor;
-
-            Console.WriteLine("Data:\n");
-            Console.WriteLine(donorViewModel.Donor[0].Name);
         }
 
         private void BloodTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

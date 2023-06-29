@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.ViewModels;
 
 namespace WPFApp.Views
 {
@@ -44,5 +45,19 @@ namespace WPFApp.Views
         {
 
         }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Execute the login command
+                var viewModel = (LoginViewModel)DataContext;
+                if (viewModel.LoginCommand.CanExecute(null))
+                {
+                    viewModel.LoginCommand.Execute(null);
+                }
+            }
+        }
+
     }
 }

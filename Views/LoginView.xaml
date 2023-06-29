@@ -35,7 +35,9 @@
 
         <Border CornerRadius="10"                    
             BorderThickness="2"
-            Opacity="0.90">
+            Opacity="0.90"
+            KeyDown="Grid_KeyDown" 
+        >
 
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
