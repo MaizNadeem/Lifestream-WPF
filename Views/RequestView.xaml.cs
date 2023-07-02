@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using WPFApp.Models;
@@ -30,24 +31,47 @@ namespace WPFApp.Views
             filteredRequests.Clear();
 
             string searchQuery = SearchTextBox.Text.ToLower();
-            string bloodType = BloodTypeCombo.SelectedItem?.ToString();
+            string bloodType = BloodTypeCombo.Text;
             DateTime fromDate = FromDatePicker.SelectedDate ?? DateTime.MinValue;
             DateTime toDate = ToDatePicker.SelectedDate ?? DateTime.MaxValue;
+            string requestStatus = RequestTypeCombo.Text;
 
             RequestRepository requestRepository = new RequestRepository();
             PatientRepository patientRepository = new PatientRepository();
 
-            // Retrieve requests based on blood type, name, and date range
-            var matchingRequests = requestRepository.GetRequestsByBloodTypeAndName(bloodType, searchQuery);
+            // Retrieve requests based on blood type
+            var matchingRequestsByBloodType = requestRepository.GetRequestsByBloodType(bloodType);
 
-            foreach (RequestModel request in matchingRequests)
+            // Retrieve other requests based on patient name
+            var matchingRequestsByPatientName = requestRepository.GetRequestsByPatientName(searchQuery);
+
+            foreach (RequestModel request in matchingRequestsByBloodType)
             {
-                // Get patient name for the request
-                PatientModel patient = patientRepository.GetPatientByID(request.PatientID);
-                if (patient != null && patient.Name.ToLower().Contains(searchQuery))
+                // Filter requests by date range, status, and patient name
+                if ((request.RequiredDate >= fromDate && request.RequiredDate <= toDate) &&
+                    (request.Status == requestStatus || requestStatus == "All Requests" || requestStatus == "--Select Status--") &&
+                    (string.IsNullOrEmpty(searchQuery) || patientRepository.GetPatientByID(request.PatientID)?.Name.ToLower().Contains(searchQuery) == true))
                 {
-                    // Filter requests by date range
-                    if (request.PlacementDate >= fromDate && request.PlacementDate <= toDate)
+                    filteredRequests.Add(request);
+                }
+            }
+
+            foreach (RequestModel request in matchingRequestsByPatientName)
+            {
+                // Filter requests by date range, status, and blood type
+                if ((request.RequiredDate >= fromDate && request.RequiredDate <= toDate) &&
+                    (request.Status == requestStatus || requestStatus == "All Requests" || requestStatus == "--Select Status--") &&
+                    (string.IsNullOrEmpty(bloodType) || request.BloodType == bloodType || bloodType == "All Blood Types" || bloodType == "--Select Type--"))
+                {
+                    bool flag = false;
+                    foreach (RequestModel requestModel in filteredRequests)
+                    {
+                        if (requestModel.RequestID == request.RequestID)
+                        {
+                            flag = true; break;
+                        }
+                    }
+                    if (flag == false)
                     {
                         filteredRequests.Add(request);
                     }

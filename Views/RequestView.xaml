@@ -73,13 +73,14 @@
             </StackPanel>
             <Button x:Name="SearchButton"
                     Grid.Column="1"                      
-                    Content="Search"                            
+                    Content="Search"            
                     FontSize="12"
                     FontFamily="Montserrat"
                     Cursor="Hand"
                     BorderThickness="0"
                     Foreground="White"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Click="ApplyFiltersButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#a51214"/>
@@ -178,10 +179,10 @@
                     </Style>
                 </ui:DataGrid.Resources>
                 <ui:DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="*" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding RequestID}" Width="*" />
                     <DataGridTextColumn Header="Blood Type" Binding="{Binding BloodType}" Width="*" />
                     <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*" />
-                    <DataGridTextColumn Header="Placement Date" Binding="{Binding PlacementDate, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
+                    <DataGridTextColumn Header="Placement Date" Binding="{Binding PlaceDate, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
                     <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
                     <DataGridTextColumn Header="Patient ID" Binding="{Binding PatientID}" Width="*" />

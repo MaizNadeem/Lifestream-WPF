@@ -28,21 +28,6 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
-                <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="white"/>
-                <TextBox Text="Search..."   
-                    FontSize="12"
-                         Height="33"
-                           Width="177"
-                           Background="Transparent"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"
-                             Margin="5,0,0,0">
-                </TextBox>
                 <ComboBox
                     x:Name="BloodTypeCombo" Margin="10,0,0,0" Width="170" Height="34" Text="--Select Type--"
                     FontSize="12"
@@ -59,7 +44,7 @@
                     <ComboBoxItem Name="Item9">AB-</ComboBoxItem>
                 </ComboBox>
                 <ComboBox
-                    x:Name="AppointmentTypeCombo" Margin="10,0,0,0" Width="170" Height="34"
+                    x:Name="ReceiptProcessCombo" Margin="10,0,0,0" Width="170" Height="34"
                     Text="--Select Process--"
                     FontSize="12"
                     FontFamily="Montserrat"
@@ -70,13 +55,14 @@
                 </ComboBox>
             </StackPanel>
             <Button Grid.Column="1"                           
-                            Content="Search"                            
-                            FontSize="12"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            BorderThickness="0"
-                            Foreground="White"
-                    VerticalAlignment="Center">
+                    Content="Search"                            
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Click="ApplyFiltersButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#a51214"/>
@@ -108,39 +94,85 @@
                        FontFamily="Montserrat"
                        FontSize="12"
                        Margin="31,0,31,0"/>
-            <DatePicker  Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+            <DatePicker     x:Name="FromDatePicker"
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             <TextBlock Text="To: "
                        VerticalAlignment="Center"
                        Foreground="White"
                        FontFamily="Montserrat"
                        FontSize="12"
                        Margin="35,0,31,0"/>
-            <DatePicker  Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+            <DatePicker     x:Name="ToDatePicker"
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
         </StackPanel>
         <Border Grid.Row="2"
                 Background="#990000"
                 CornerRadius="10" 
                 Padding="10">
-            <ui:DataGrid Name="AppointmentsGrid" 
-                  ColumnWidth="*"
-                  Background="#990000"
-                  BorderThickness="0"
-                  IsReadOnly="True"
-                  FontFamily="Montserrat">
+            <ui:DataGrid Name="ReceiptGrid"
+                         ColumnWidth="Auto"
+                         Background="#990000"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         FontFamily="Calibri"
+                         ScrollViewer.CanContentScroll="False"
+                         HorizontalAlignment="Stretch"
+                         Margin="10"
+                         VerticalAlignment="Stretch"
+                         AutoGenerateColumns="False">
+                <ui:DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontFamily" Value="Montserrat" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Background" Value="#990000" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="0 10"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="FontSize" Value="10" />
+                        <Setter Property="Margin" Value="0,5" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#E2E2E2" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:DataGrid.Resources>
+                <ui:DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ReceiptID}" Width="*" />
+                    <DataGridTextColumn Header="Receipt Date" Binding="{Binding ReceiptDate, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
+                    <DataGridTextColumn Header="Blood Type" Binding="{Binding BloodType}" Width="*" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*" />
+                    <DataGridTextColumn Header="Bag Health" Binding="{Binding BagHealth}" Width="*" />
+                    <DataGridTextColumn Header="Process" Binding="{Binding Process}" Width="*" />
+                    <DataGridTextColumn Header="Staff ID" Binding="{Binding StaffID}" Width="*" />
+                    <DataGridTextColumn Header="Request ID" Binding="{Binding RequestID}" Width="*" />
+                    <DataGridTextColumn Header="Appointment ID" Binding="{Binding AppointmentID}" Width="*" />
+                </ui:DataGrid.Columns>
+
+
             </ui:DataGrid>
         </Border>
     </Grid>

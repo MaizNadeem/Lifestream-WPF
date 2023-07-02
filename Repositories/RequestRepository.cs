@@ -115,5 +115,104 @@ namespace WPFApp.Repositories
                 connection.Close();
             }
         }
+
+        public ObservableCollection<RequestModel> GetRequestsByBloodType(string bloodType)
+        {
+            ObservableCollection<RequestModel> requests = new ObservableCollection<RequestModel>();
+
+            if (bloodType == "All Blood Types" || bloodType == "--Select Type--" || bloodType == null) {
+                RequestRepository req = new RequestRepository();
+                requests = req.GetRequests();
+                return requests;
+            }
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM [BloodBank].[dbo].[Request] WHERE [Request_BloodType] = @BloodType";
+                command.Parameters.AddWithValue("@BloodType", bloodType);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int requestId = reader.GetInt32(reader.GetOrdinal("Request_ID"));
+                        string bbloodType = reader.GetString(reader.GetOrdinal("Request_BloodType"));
+                        int quantity = reader.GetInt32(reader.GetOrdinal("Request_Quantity"));
+                        DateTime placeDate = reader.GetDateTime(reader.GetOrdinal("Request_PlaceDate"));
+                        DateTime requiredDate = reader.GetDateTime(reader.GetOrdinal("Request_RequiredDate"));
+                        string status = reader.GetString(reader.GetOrdinal("Request_Status"));
+                        int patientId = reader.GetInt32(reader.GetOrdinal("Patient_ID"));
+
+                        requests.Add(new RequestModel
+                        {
+                            RequestID = requestId,
+                            BloodType = bbloodType,
+                            Quantity = quantity,
+                            PlaceDate = placeDate,
+                            RequiredDate = requiredDate,
+                            Status = status,
+                            PatientID = patientId
+                        });
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return requests;
+        }
+
+        public ObservableCollection<RequestModel> GetRequestsByPatientName(string name)
+        {
+            ObservableCollection<RequestModel> requests = new ObservableCollection<RequestModel>();
+
+            if (name == "Search..." || name == "search..." || name == null)
+            {
+                RequestRepository req = new RequestRepository();
+                requests = req.GetRequests();
+                return requests;
+            }
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT R.* FROM [BloodBank].[dbo].[Request] R INNER JOIN [BloodBank].[dbo].[Patient] P ON R.[Patient_ID] = P.[Patient_ID] WHERE P.[Patient_Name] LIKE @Name";
+                command.Parameters.AddWithValue("@Name", "%" + name + "%");
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int requestId = reader.GetInt32(reader.GetOrdinal("Request_ID"));
+                        string bloodType = reader.GetString(reader.GetOrdinal("Request_BloodType"));
+                        int quantity = reader.GetInt32(reader.GetOrdinal("Request_Quantity"));
+                        DateTime placeDate = reader.GetDateTime(reader.GetOrdinal("Request_PlaceDate"));
+                        DateTime requiredDate = reader.GetDateTime(reader.GetOrdinal("Request_RequiredDate"));
+                        string status = reader.GetString(reader.GetOrdinal("Request_Status"));
+                        int patientId = reader.GetInt32(reader.GetOrdinal("Patient_ID"));
+
+                        requests.Add(new RequestModel
+                        {
+                            RequestID = requestId,
+                            BloodType = bloodType,
+                            Quantity = quantity,
+                            PlaceDate = placeDate,
+                            RequiredDate = requiredDate,
+                            Status = status,
+                            PatientID = patientId
+                        });
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return requests;
+        }
     }
 }

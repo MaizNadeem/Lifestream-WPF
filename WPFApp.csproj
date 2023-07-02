@@ -96,12 +96,14 @@
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Models\DonorModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Repositories\AppointmentRepository.cs" />
     <Compile Include="Repositories\PatientRepository.cs" />
     <Compile Include="Repositories\DonorRepository.cs" />
+    <Compile Include="Repositories\ReceiptRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\RequestRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
