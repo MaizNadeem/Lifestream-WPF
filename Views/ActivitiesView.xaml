@@ -85,15 +85,19 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="timeComboBox" Width="188" Height="29"
+                  FontSize="10"
+                  FontWeight="Medium"
+                  FontFamily="Montserrat"
+                  Foreground="White"
+                  BorderBrush="White"
+                  BorderThickness="0,0,0,1"
+                  VerticalContentAlignment="Center">
+                    <ComboBoxItem Content="09:00 AM"/>
+                    <ComboBoxItem Content="10:00 AM"/>
+                    <ComboBoxItem Content="11:00 AM"/>
+                    <!-- Add more time options as needed -->
+                </ComboBox>
             </StackPanel>
             <Button Grid.Column="4"
                     Content="Create Appointment"

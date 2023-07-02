@@ -28,19 +28,20 @@
                         VerticalAlignment="Top"
                         Grid.Column="0">
                 <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="white"/>
-                <TextBox Text="Search..."   
-                    FontSize="16"
-                         Height="41"
-                           Width="286"
-                           Background="Transparent"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"
-                             Margin="5,0,0,0">
+                <TextBox    x:Name="SearchTextBox"
+                            Text="Search..."   
+                            FontSize="16"
+                            Height="41"
+                            Width="286"
+                            Background="Transparent"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"
+                            Margin="5,0,0,0">
                 </TextBox>
                 <ComboBox
                     x:Name="BloodTypeCombo" Margin="10,0,0,0" Width="170" Height="38" Text="--Select Type--"
@@ -58,14 +59,14 @@
                 </ComboBox>
             </StackPanel>
             <Button Grid.Column="1"                           
-                            Content="Search"                            
-                            FontSize="12"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            BorderThickness="0"
-                            Foreground="White"
-                            VerticalAlignment="Center"
-                            Click="Button_Click">
+                    Content="Search"                            
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Click="Button_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#a51214"/>

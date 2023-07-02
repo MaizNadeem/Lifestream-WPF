@@ -30,15 +30,26 @@ namespace WPFApp.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (BloodTypeCombo.Text != "All Blood Types")
-                PatientGrid.ItemsSource = patientViewModel.Patient.Where(s => s.BloodType == BloodTypeCombo.Text).ToList();
+            string searchText = SearchTextBox.Text?.Trim();
+
+            if (searchText == "Search...")
+            {
+                searchText = string.Empty; // Exclude the "Search..." text from the filter
+            }
+
+            if (BloodTypeCombo.Text != "All Blood Types" && BloodTypeCombo.Text != null && BloodTypeCombo.Text != "--Select Type--")
+            {
+                PatientGrid.ItemsSource = patientViewModel.Patient
+                    .Where(patient => patient.BloodType == BloodTypeCombo.Text &&
+                        (string.IsNullOrEmpty(searchText) || patient.Name.ToLower().Contains(searchText.ToLower())))
+                    .ToList();
+            }
             else
-                PatientGrid.ItemsSource = patientViewModel.Patient;
-        }
-
-        private void BloodTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            {
+                PatientGrid.ItemsSource = patientViewModel.Patient
+                    .Where(patient => string.IsNullOrEmpty(searchText) || patient.Name.ToLower().Contains(searchText.ToLower()))
+                    .ToList();
+            }
         }
     }
 }

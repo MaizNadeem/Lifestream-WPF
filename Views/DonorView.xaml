@@ -28,24 +28,28 @@
                         VerticalAlignment="Top"
                         Grid.Column="0">
                 <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="white"/>
-                <TextBox Text="Search..."   
-                    FontSize="16"
-                         Height="41"
-                           Width="286"
-                           Background="Transparent"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"
-                             Margin="5,0,0,0">
+                <TextBox    x:Name="SearchTextBox"
+                            Text="Search..."   
+                            FontSize="16"
+                            Height="41"
+                            Width="286"
+                            Background="Transparent"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"
+                            Margin="5,0,0,0">
                 </TextBox>
                 <ComboBox
-                    x:Name="BloodTypeCombo" Margin="10,0,0,0" Width="170" Height="38" Text="--Select Type--"
+                    x:Name="BloodTypeCombo" Margin="10,0,0,0" 
+                    Width="170" Height="38" Text="--Select Type--"
                     FontFamily="Montserrat"
-                    Focusable="False" IsEditable="True" IsReadOnly="True" SelectionChanged="BloodTypeCombo_SelectionChanged">
+                    Focusable="False" IsEditable="True"
+                    IsReadOnly="True">
+                    
                     <ComboBoxItem Name="Item1">All Blood Types</ComboBoxItem>
                     <ComboBoxItem Name="Item2">A+</ComboBoxItem>
                     <ComboBoxItem Name="Item3">A-</ComboBoxItem>
