@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using WPFApp.Models;
+using WPFApp.Repositories;
 
 namespace WPFApp.ViewModels
 {
     public class AppointmentsViewModel : ViewModelBase
     {
+        public ObservableCollection<AppointmentModel> Appointments { get; set; }
 
+        public AppointmentsViewModel()
+        {
+            AppointmentRepository appointmentRepository = new AppointmentRepository();
+            Appointments = appointmentRepository.GetAppointments();
+        }
     }
 }

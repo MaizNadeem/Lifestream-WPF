@@ -124,5 +124,49 @@ namespace WPFApp.Repositories
                 connection.Close();
             }
         }
+
+        public PatientModel GetPatientByID(int patientId)
+        {
+            PatientModel patient = null;
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM [BloodBank].[dbo].[Patient] WHERE [Patient_ID] = @PatientID";
+                command.Parameters.AddWithValue("@PatientID", patientId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string name = reader.GetString(reader.GetOrdinal("Patient_Name"));
+                        DateTime dob = reader.GetDateTime(reader.GetOrdinal("Patient_DOB"));
+                        string bloodType = reader.GetString(reader.GetOrdinal("Patient_BloodType"));
+                        string gender = reader.GetString(reader.GetOrdinal("Patient_Gender"));
+                        string contact = reader.GetString(reader.GetOrdinal("Patient_Contact"));
+                        string address = reader.GetString(reader.GetOrdinal("Patient_Address"));
+                        string frequency = reader.GetString(reader.GetOrdinal("Patient_Frequency"));
+
+                        patient = new PatientModel
+                        {
+                            ID = patientId,
+                            Name = name,
+                            DOB = dob,
+                            BloodType = bloodType,
+                            Gender = gender,
+                            Contact = contact,
+                            Address = address,
+                            Frequency = frequency
+                        };
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return patient;
+        }
     }
 }

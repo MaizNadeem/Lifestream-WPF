@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using WPFApp.Models;
@@ -110,8 +111,6 @@ namespace WPFApp.Repositories
             }
         }
 
-
-
         public void DeleteDonor(int donorId)
         {
             using (var connection = GetConnection())
@@ -127,5 +126,59 @@ namespace WPFApp.Repositories
                 connection.Close();
             }
         }
+
+        public List<DonorModel> GetDonorsByNameAndBloodType(string name, string bloodType)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                // Build the query based on the provided name and blood type
+                string query = "SELECT * FROM [BloodBank].[dbo].[Donor] WHERE 1 = 1";
+
+                if (!string.IsNullOrEmpty(name) && name != "search...")
+                {
+                    query += " AND [Donor_Name] LIKE @Name";
+                    command.Parameters.AddWithValue("@Name", $"%{name}%");
+                }
+
+                if (!string.IsNullOrEmpty(bloodType) && bloodType != "All Blood Types" && bloodType != "--Select Type--")
+                {
+                    query += " AND [Donor_BloodType] = @BloodType";
+                    command.Parameters.AddWithValue("@BloodType", bloodType);
+                }
+
+                command.CommandText = query;
+
+                var donors = new List<DonorModel>();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var donor = new DonorModel
+                        {
+                            ID = Convert.ToInt32(reader["Donor_ID"]),
+                            Name = reader["Donor_Name"].ToString(),
+                            DOB = Convert.ToDateTime(reader["Donor_DOB"]),
+                            Gender = reader["Donor_Gender"].ToString(),
+                            BloodType = reader["Donor_BloodType"].ToString(),
+                            Contact = reader["Donor_Contact"].ToString(),
+                            Address = reader["Donor_Address"].ToString(),
+                            Frequency = reader["Donor_Frequency"].ToString(),
+                            LastDonated = Convert.ToDateTime(reader["Donor_LastDonated"])
+                        };
+
+                        donors.Add(donor);
+                    }
+                }
+
+                connection.Close();
+                return donors;
+            }
+        }
+
     }
 }
