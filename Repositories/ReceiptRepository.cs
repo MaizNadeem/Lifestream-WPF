@@ -70,75 +70,36 @@ namespace WPFApp.Repositories
             return receipts;
         }
 
-        public void AddReceipt(DateTime receiptDate, string bloodType, int quantity, string bagHealth, string process, int staffId, int requestId, int appointmentId)
+        public bool AddReceipt(DateTime dateTime, string bloodType, int quantity, int staffId, int appointmentId, out string errorMessage)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            errorMessage = string.Empty;
+
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "INSERT INTO [BloodBank].[dbo].[Receipt] ([Receipt_DateTime], [Receipt_BloodType], [Receipt_Quantity], [Receipt_BagHealth], [Receipt_Process], [Staff_ID], [Request_ID], [Appo_ID]) " +
-                                      "VALUES (@ReceiptDate, @BloodType, @Quantity, @BagHealth, @Process, @StaffID, @RequestID, @AppointmentID)";
+                using (SqlConnection connection = GetConnection())
+                {
+                    string query = "INSERT INTO [Receipt] ([Receipt_DateTime], [Receipt_BloodType], [Receipt_Quantity], [Receipt_BagHealth], [Receipt_Process], [Staff_ID], [Request_ID], [Appo_ID]) " +
+                                   "VALUES (@DateTime, @BloodType, @Quantity, 'Fresh', 'Donation', @StaffId, NULL, @AppointmentId)";
 
-                command.Parameters.AddWithValue("@ReceiptDate", receiptDate);
-                command.Parameters.AddWithValue("@BloodType", bloodType);
-                command.Parameters.AddWithValue("@Quantity", quantity);
-                command.Parameters.AddWithValue("@BagHealth", bagHealth);
-                command.Parameters.AddWithValue("@Process", process);
-                command.Parameters.AddWithValue("@StaffID", staffId);
-                command.Parameters.AddWithValue("@RequestID", requestId);
-                command.Parameters.AddWithValue("@AppointmentID", appointmentId);
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DateTime", dateTime);
+                        command.Parameters.AddWithValue("@BloodType", bloodType);
+                        command.Parameters.AddWithValue("@Quantity", quantity);
+                        command.Parameters.AddWithValue("@StaffId", staffId);
+                        command.Parameters.AddWithValue("@AppointmentId", appointmentId);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
             }
-        }
-
-        public void UpdateReceipt(int receiptId, DateTime? receiptDate, string bloodType, int quantity, string bagHealth, string process, int staffId, int? requestId, int? appointmentId)
-        {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            catch (Exception ex)
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "UPDATE [BloodBank].[dbo].[Receipt] SET " +
-                                      "[Receipt_DateTime] = COALESCE(@ReceiptDate, [Receipt_Date]), " +
-                                      "[Receipt_BloodType] = @BloodType, " +
-                                      "[Receipt_Quantity] = @Quantity, " +
-                                      "[Receipt_BagHealth] = @BagHealth, " +
-                                      "[Receipt_Process] = @Process, " +
-                                      "[Staff_ID] = @StaffID, " +
-                                      "[Request_ID] = COALESCE(@RequestID, [Request_ID]), " +
-                                      "[Appo_ID] = COALESCE(@AppointmentID, [Appointment_ID]) " +
-                                      "WHERE [Receipt_ID] = @ReceiptID";
-
-                command.Parameters.AddWithValue("@ReceiptID", receiptId);
-                command.Parameters.AddWithValue("@ReceiptDate", (object)receiptDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@BloodType", bloodType);
-                command.Parameters.AddWithValue("@Quantity", quantity);
-                command.Parameters.AddWithValue("@BagHealth", bagHealth);
-                command.Parameters.AddWithValue("@Process", process);
-                command.Parameters.AddWithValue("@StaffID", staffId);
-                command.Parameters.AddWithValue("@RequestID", (object)requestId ?? DBNull.Value);
-                command.Parameters.AddWithValue("@AppointmentID", (object)appointmentId ?? DBNull.Value);
-
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-
-        public void DeleteReceipt(int receiptId)
-        {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "DELETE FROM [BloodBank].[dbo].[Receipt] WHERE [Receipt_ID] = @ReceiptID";
-                command.Parameters.AddWithValue("@ReceiptID", receiptId);
-
-                command.ExecuteNonQuery();
-                connection.Close();
+                errorMessage = ex.Message;
+                return false;
             }
         }
 

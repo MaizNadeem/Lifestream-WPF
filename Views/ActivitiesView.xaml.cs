@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,12 +13,16 @@ namespace WPFApp.Views
     {
         public AppointmentRepository appointmentRepository;
         public RequestRepository requestRepository;
+        public ReceiptRepository receiptRepository;
+        public UserRepository userRepository;
 
         public ActivitiesView()
         {
             InitializeComponent();
             appointmentRepository = new AppointmentRepository();
             requestRepository = new RequestRepository();
+            receiptRepository = new ReceiptRepository();
+            userRepository = new UserRepository();
         }
 
         private void CreateAppButton_Click(object sender, RoutedEventArgs e)
@@ -234,6 +240,62 @@ namespace WPFApp.Views
                 SetStatusMessage($"Error: {errorMessage}", isError: true);
             }
         }
+
+        private void GenerateDonationReceipt_Click(object sender, RoutedEventArgs e)
+        {
+            int appointmentId;
+            int quantity;
+
+            if (!int.TryParse(AppIDDonationTextBox.Text, out appointmentId))
+            {
+                SetStatusMessage($"Error: Enter a valid Appointment ID", isError: true);
+                ResetInputFields();
+                return;
+            }
+
+            if (!int.TryParse(QuantityDonationTextBox.Text, out quantity))
+            {
+                SetStatusMessage($"Error: Enter a valid Quantity", isError: true);
+                ResetInputFields();
+                return;
+            }
+
+            // Retrieve the user's staff ID
+            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+            int staffId;
+            int.TryParse(user.Id, out staffId);
+
+            // Retrieve the patient's blood type from the Appointments table
+            string bloodType;
+            string _connectionString = "Server=MUHAMMAD-MAIZ-N\\MSSQLSERVER22; Database=BloodBank; Integrated Security=true";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string bloodTypeQuery = "SELECT [Donor_BloodType] FROM [Donor] WHERE [Donor_ID] =  (SELECT [Donor_ID] FROM [Appointment] WHERE [ID] = @AppointmentId)";
+                using (SqlCommand command = new SqlCommand(bloodTypeQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@AppointmentId", appointmentId);
+                    connection.Open();
+                    bloodType = command.ExecuteScalar()?.ToString();
+                }
+            }
+
+            // Generate the receipt
+            bool success;
+            string errorMessage;
+            success = receiptRepository.AddReceipt(DateTime.Now, bloodType, quantity, staffId, appointmentId, out errorMessage);
+
+
+            if (success)
+            {
+                SetStatusMessage("Receipt generated successfully!", isError: false);
+                ResetInputFields();
+            }
+            else
+            {
+                SetStatusMessage($"Error: {errorMessage}", isError: true);
+            }
+        }
+
 
 
         private void SetStatusMessage(string message, bool isError)

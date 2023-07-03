@@ -186,32 +186,34 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="AppIDDonationTextBox"
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
-                <TextBlock Text="Bag Quantity"
-                           VerticalAlignment="Center"
-                           Foreground="White"
-                           FontFamily="Montserrat"
-                           FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBlock  Text="Bag Quantity"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            FontFamily="Montserrat"
+                            FontSize="12"/>
+                <TextBox    x:Name="QuantityDonationTextBox" 
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <Button Grid.Column="4"
                     Content="Generate Receipt"
@@ -220,7 +222,8 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="0,9,0,0">
+                    Margin="0,9,0,0"
+                    Click="GenerateDonationReceipt_Click">
             </Button>
         </Grid>
         <TextBlock Text="Manage Requests"
