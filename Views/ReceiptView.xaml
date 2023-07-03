@@ -169,7 +169,7 @@
                     <DataGridTextColumn Header="Process" Binding="{Binding Process}" Width="*" />
                     <DataGridTextColumn Header="Staff ID" Binding="{Binding StaffID}" Width="*" />
                     <DataGridTextColumn Header="Request ID" Binding="{Binding RequestID}" Width="*" />
-                    <DataGridTextColumn Header="Appointment ID" Binding="{Binding AppointmentID}" Width="*" />
+                    <DataGridTextColumn Header="App ID" Binding="{Binding AppointmentID}" Width="*" />
                 </ui:DataGrid.Columns>
 
 

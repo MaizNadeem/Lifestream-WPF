@@ -49,72 +49,134 @@ namespace WPFApp.Repositories
             return requests;
         }
 
-        public void AddRequest(string bloodType, int quantity, DateTime placeDate, DateTime requiredDate, string status, int patientId)
+        public bool AddRequest(int patientId, DateTime requestDate, int requestQuantity, out string errorMessage)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            // Retrieve patient blood type
+            string bloodType = GetPatientBloodType(patientId);
+
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "INSERT INTO [BloodBank].[dbo].[Request] ([Request_BloodType], [Request_Quantity], [Request_PlaceDate], [Request_RequiredDate], [Request_Status], [Patient_ID]) " +
-                                      "VALUES (@BloodType, @Quantity, @PlaceDate, @RequiredDate, @Status, @PatientID)";
+                using (SqlConnection connection = GetConnection())
+                {
+                    // Prepare the SQL query
+                    string query = "INSERT INTO [Request] ([Request_BloodType], [Request_Quantity], [Request_PlaceDate], [Request_RequiredDate], [Request_Status], [Patient_ID]) " +
+                                   "VALUES (@BloodType, @RequestQuantity, GETDATE(), @RequestRequiredDate, 'Pending', @PatientId)";
 
-                command.Parameters.AddWithValue("@BloodType", bloodType);
-                command.Parameters.AddWithValue("@Quantity", quantity);
-                command.Parameters.AddWithValue("@PlaceDate", placeDate);
-                command.Parameters.AddWithValue("@RequiredDate", requiredDate);
-                command.Parameters.AddWithValue("@Status", status);
-                command.Parameters.AddWithValue("@PatientID", patientId);
+                    // Create the SqlCommand object
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Set the parameter values
+                        command.Parameters.AddWithValue("@BloodType", bloodType);
+                        command.Parameters.AddWithValue("@RequestQuantity", requestQuantity);
+                        command.Parameters.AddWithValue("@RequestRequiredDate", requestDate);
+                        command.Parameters.AddWithValue("@PatientId", patientId);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                        // Open the connection and execute the query
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                errorMessage = string.Empty;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return false;
             }
         }
 
-        public void UpdateRequest(int requestId, string bloodType, int quantity, DateTime? placeDate, DateTime? requiredDate, string status, int patientId)
+        public bool UpdateRequest(int requestId, int requestQuantity, DateTime requestDate, out string errorMessage)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "UPDATE [BloodBank].[dbo].[Request] SET " +
-                                      "[Request_BloodType] = COALESCE(@BloodType, [Request_BloodType]), " +
-                                      "[Request_Quantity] = COALESCE(@Quantity, [Request_Quantity]), " +
-                                      "[Request_PlaceDate] = COALESCE(@PlaceDate, [Request_PlaceDate]), " +
-                                      "[Request_RequiredDate] = COALESCE(@RequiredDate, [Request_RequiredDate]), " +
-                                      "[Request_Status] = COALESCE(@Status, [Request_Status]), " +
-                                      "[Patient_ID] = COALESCE(@PatientID, [Patient_ID]) " +
-                                      "WHERE [Request_ID] = @RequestID";
+                using (SqlConnection connection = GetConnection())
+                {
+                    // Prepare the SQL query
+                    string query = "UPDATE [Request] SET [Request_Quantity] = @RequestQuantity, [Request_RequiredDate] = @RequestRequiredDate WHERE [Request_ID] = @RequestId";
 
-                command.Parameters.AddWithValue("@RequestID", requestId);
-                command.Parameters.AddWithValue("@BloodType", !string.IsNullOrEmpty(bloodType) ? (object)bloodType : DBNull.Value);
-                command.Parameters.AddWithValue("@Quantity", quantity);
-                command.Parameters.AddWithValue("@PlaceDate", placeDate.HasValue ? (object)placeDate.Value : DBNull.Value);
-                command.Parameters.AddWithValue("@RequiredDate", requiredDate.HasValue ? (object)requiredDate.Value : DBNull.Value);
-                command.Parameters.AddWithValue("@Status", !string.IsNullOrEmpty(status) ? (object)status : DBNull.Value);
-                command.Parameters.AddWithValue("@PatientID", patientId);
+                    // Create the SqlCommand object
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Set the parameter values
+                        command.Parameters.AddWithValue("@RequestId", requestId);
+                        command.Parameters.AddWithValue("@RequestQuantity", requestQuantity);
+                        command.Parameters.AddWithValue("@RequestRequiredDate", requestDate);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                        // Open the connection and execute the query
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                errorMessage = string.Empty;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here or log them
+                errorMessage = ex.Message;
+                return false;
             }
         }
 
-        public void DeleteRequest(int requestId)
+
+
+        private string GetPatientBloodType(int patientId)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (SqlConnection connection = GetConnection())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "DELETE FROM [BloodBank].[dbo].[Request] WHERE [Request_ID] = @RequestID";
+                // Prepare the SQL query
+                string query = "SELECT [Patient_BloodType] FROM [Patient] WHERE [Patient_ID] = @PatientId";
 
-                command.Parameters.AddWithValue("@RequestID", requestId);
+                // Create the SqlCommand object
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    // Set the parameter value
+                    command.Parameters.AddWithValue("@PatientId", patientId);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                    // Open the connection and execute the query
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result?.ToString();
+                }
             }
         }
+
+
+        public (bool, string) DeleteRequest(int requestId)
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand())
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = "DELETE FROM [BloodBank].[dbo].[Request] WHERE [request_id] = @RequestId";
+
+                    command.Parameters.AddWithValue("@RequestId", requestId);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (rowsAffected > 0)
+                    {
+                        return (true, "");
+                    }
+                    else
+                    {
+                        return (false, "No request found with the specified ID.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+
 
         public ObservableCollection<RequestModel> GetRequestsByBloodType(string bloodType)
         {

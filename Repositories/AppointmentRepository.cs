@@ -47,67 +47,97 @@ namespace WPFApp.Repositories
             return appointments;
         }
 
-        public void AddAppointment(string name, DateTime placementDate, DateTime appointmentDate, string status, int donorId)
+        public bool AddAppointment(string name, DateTime placementDate, DateTime appointmentDate, string status, int donorId, out string errorMessage)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            errorMessage = string.Empty;
+
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "INSERT INTO [BloodBank].[dbo].[Appointment] ([appo_name], [appo_placedate], [appo_datetime], [appo_status], [donor_id]) " +
-                                      "VALUES (@Name, @PlacementDate, @AppointmentDate, @Status, @DonorID)";
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand())
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = "INSERT INTO [BloodBank].[dbo].[Appointment] ([appo_name], [appo_placedate], [appo_datetime], [appo_status], [donor_id]) " +
+                                          "VALUES (@Name, @PlacementDate, @AppointmentDate, @Status, @DonorID)";
 
-                command.Parameters.AddWithValue("@Name", name);
-                command.Parameters.AddWithValue("@PlacementDate", placementDate);
-                command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
-                command.Parameters.AddWithValue("@Status", status);
-                command.Parameters.AddWithValue("@DonorID", donorId);
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@PlacementDate", placementDate);
+                    command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
+                    command.Parameters.AddWithValue("@Status", status);
+                    command.Parameters.AddWithValue("@DonorID", donorId);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+
+                    return true; // Appointment added successfully
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return false; // Error occurred while adding the appointment
             }
         }
 
-        public void UpdateAppointment(int appointmentId, string name, DateTime? placementDate, DateTime? appointmentDate, string status, int donorId)
+        public (bool success, string errorMessage) EditAppointment(int appointmentId, DateTime appointmentDate)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "UPDATE [BloodBank].[dbo].[Appointment] SET " +
-                                      "[appo_name] = COALESCE(@Name, [appo_name]), " +
-                                      "[appo_placedate] = COALESCE(@PlacementDate, [appo_placedate]), " +
-                                      "[appo_datetime] = COALESCE(@AppointmentDate, [appo_datetime]), " +
-                                      "[appo_status] = COALESCE(@Status, [appo_status]), " +
-                                      "[donor_id] = COALESCE(@DonorID, [donor_id]) " +
-                                      "WHERE [id] = @AppointmentID";
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand())
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE [BloodBank].[dbo].[Appointment] SET [appo_datetime] = @AppointmentDate WHERE [id] = @AppointmentId";
 
-                command.Parameters.AddWithValue("@AppointmentID", appointmentId);
-                command.Parameters.AddWithValue("@Name", !string.IsNullOrEmpty(name) ? (object)name : DBNull.Value);
-                command.Parameters.AddWithValue("@PlacementDate", placementDate.HasValue ? (object)placementDate.Value : DBNull.Value);
-                command.Parameters.AddWithValue("@AppointmentDate", appointmentDate.HasValue ? (object)appointmentDate.Value : DBNull.Value);
-                command.Parameters.AddWithValue("@Status", !string.IsNullOrEmpty(status) ? (object)status : DBNull.Value);
-                command.Parameters.AddWithValue("@DonorID", donorId);
+                    command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
+                    command.Parameters.AddWithValue("@AppointmentId", appointmentId);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (rowsAffected > 0)
+                        return (true, string.Empty);
+                    else
+                        return (false, "No appointment found with the specified ID.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception or log the error
+                Console.WriteLine($"Error: {ex.Message}");
+                return (false, $"Error: {ex.Message}");
             }
         }
 
-        public void DeleteAppointment(int appointmentId)
+        public (bool success, string errorMessage) DeleteAppointment(int appointmentId)
         {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "DELETE FROM [BloodBank].[dbo].[Appointment] WHERE [id] = @AppointmentID";
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand())
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = "DELETE FROM [BloodBank].[dbo].[Appointment] WHERE [id] = @AppointmentId";
 
-                command.Parameters.AddWithValue("@AppointmentID", appointmentId);
+                    command.Parameters.AddWithValue("@AppointmentId", appointmentId);
 
-                command.ExecuteNonQuery();
-                connection.Close();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (rowsAffected > 0)
+                        return (true, string.Empty);
+                    else
+                        return (false, "No appointment found with the specified ID.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception or log the error
+                Console.WriteLine($"Error: {ex.Message}");
+                return (false, $"Error: {ex.Message}");
             }
         }
     }

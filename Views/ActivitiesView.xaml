@@ -14,15 +14,15 @@
     <Grid VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                    FontWeight="SemiBold" 
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
-                   Margin="0,0,0,20">
+                   Margin="0,0,0,0">
         </TextBlock>
         <Grid HorizontalAlignment="Center" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -47,20 +47,21 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
-                <TextBlock Text="Donor ID"
-                           VerticalAlignment="Center"
-                           Foreground="White"
-                           FontFamily="Montserrat"
-                           FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBlock  Text="Donor ID"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            FontFamily="Montserrat"
+                            FontSize="12"/>
+                <TextBox    x:Name="DonorIDTextBox"
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -69,14 +70,15 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <DatePicker  Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <DatePicker x:Name="AppDatePicker" 
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -85,28 +87,31 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <ComboBox x:Name="timeComboBox" Width="188" Height="29"
-                  FontSize="10"
-                  FontWeight="Medium"
-                  FontFamily="Montserrat"
-                  Foreground="White"
-                  BorderBrush="White"
-                  BorderThickness="0,0,0,1"
-                  VerticalContentAlignment="Center">
+                <ComboBox x:Name="AppTimeComboBox"
+                          Width="188" Height="29"
+                          FontSize="10"
+                          FontWeight="Medium"
+                          FontFamily="Montserrat"
+                          Foreground="White"
+                          BorderBrush="White"
+                          BorderThickness="0,0,0,1"
+                          VerticalContentAlignment="Center">
                     <ComboBoxItem Content="09:00 AM"/>
                     <ComboBoxItem Content="10:00 AM"/>
                     <ComboBoxItem Content="11:00 AM"/>
                     <!-- Add more time options as needed -->
                 </ComboBox>
             </StackPanel>
-            <Button Grid.Column="4"
+            <Button x:Name="CreateAppButton"
+                    Grid.Column="4"
                     Content="Create Appointment"
                     HorizontalAlignment="Center"
                     FontSize="14"
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="0,9,0,0">
+                    Margin="0,9,0,0"
+                    Click="CreateAppButton_Click">
             </Button>
         </Grid>
         <Grid HorizontalAlignment="Center" Grid.Row="2">
@@ -124,31 +129,36 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="AppIDTextBox"
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
-            <Button Grid.Column="3"
+            <Button x:Name="EditAppButton"
+                    Grid.Column="3"
                     Content="Edit Appointment"
                     FontSize="14"
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="54,14,0,0" VerticalAlignment="Top"/>
-            <Button Grid.Column="4"
+                    Margin="54,14,0,0" VerticalAlignment="Top"
+                    Click="EditAppButton_Click"/>
+            <Button x:Name="DeleteAppButton"
+                    Grid.Column="4"
                     Content="Delete Appointment"
                     HorizontalAlignment="Center"
                     FontSize="14"
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="0,9,0,0">
+                    Margin="0,9,0,0"
+                    Click="DeleteAppButton_Click">
             </Button>
         </Grid>
         <TextBlock Text="Manage Donations"
@@ -238,15 +248,16 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="PatientIDTextBox" 
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -255,14 +266,15 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <DatePicker  Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <DatePicker x:Name="RequestDatePicker" 
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center"
                         Margin="0,0,10,5">
@@ -271,15 +283,16 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="RequestQuantityTextBox"
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <Button Grid.Column="4"
                     Content="Create Request"
@@ -288,7 +301,8 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="0,9,0,0">
+                    Margin="0,9,0,0"
+                    Click="CreateRequestButton_Click">
             </Button>
         </Grid>
         <Grid HorizontalAlignment="Center" Grid.Row="7">
@@ -306,15 +320,16 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="RequestIDTextBox" 
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <Button Grid.Column="3"
                     Content="Edit Request"
@@ -322,7 +337,8 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="90,14,0,0" VerticalAlignment="Top"/>
+                    Margin="90,14,0,0" VerticalAlignment="Top"
+                    Click="EditRequestButton_Click"/>
             <Button Grid.Column="4"
                     Content="Delete Request"
                     HorizontalAlignment="Center"
@@ -330,7 +346,8 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="0,9,0,0">
+                    Margin="0,9,0,0"
+                    Click="DeleteRequestButton_Click">
             </Button>
         </Grid>
         <TextBlock Text="Manage Transfusions"
@@ -377,8 +394,21 @@
                     Cursor="Hand"
                     Margin="0,9,0,0">
             </Button>
+
+        </Grid>
+
+        <Grid Grid.Row="10">
+            <TextBlock  x:Name="StatusMessageTextBlock"
+                        Text=""
+                        Foreground="White"
+                        FontFamily="Montserrat"
+                        FontSize="12"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Margin="0,6,0,0"/>
         </Grid>
 
     </Grid>
+
+
 
 </UserControl>
