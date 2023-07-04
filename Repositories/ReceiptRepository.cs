@@ -70,7 +70,7 @@ namespace WPFApp.Repositories
             return receipts;
         }
 
-        public bool AddReceipt(DateTime dateTime, string bloodType, int quantity, int staffId, int appointmentId, out string errorMessage)
+        public bool AddReceipt(DateTime dateTime, string bloodType, int quantity, string process, int staffId, int appointmentId, out string errorMessage)
         {
             errorMessage = string.Empty;
 
@@ -78,14 +78,23 @@ namespace WPFApp.Repositories
             {
                 using (SqlConnection connection = GetConnection())
                 {
-                    string query = "INSERT INTO [Receipt] ([Receipt_DateTime], [Receipt_BloodType], [Receipt_Quantity], [Receipt_BagHealth], [Receipt_Process], [Staff_ID], [Request_ID], [Appo_ID]) " +
-                                   "VALUES (@DateTime, @BloodType, @Quantity, 'Fresh', 'Donation', @StaffId, NULL, @AppointmentId)";
-
+                    string query = "";
+                    if (process == "Donation")
+                    {
+                        query = "INSERT INTO [Receipt] ([Receipt_DateTime], [Receipt_BloodType], [Receipt_Quantity], [Receipt_BagHealth], [Receipt_Process], [Staff_ID], [Request_ID], [Appo_ID]) " +
+                                   "VALUES (@DateTime, @BloodType, @Quantity, 'Fresh', @Process, @StaffId, NULL, @AppointmentId)";
+                    }
+                    else
+                    {
+                        query = "INSERT INTO [Receipt] ([Receipt_DateTime], [Receipt_BloodType], [Receipt_Quantity], [Receipt_BagHealth], [Receipt_Process], [Staff_ID], [Request_ID], [Appo_ID]) " +
+                                   "VALUES (@DateTime, @BloodType, @Quantity, 'Fresh', @Process, @StaffId, @AppointmentId, NULL)";
+                    }
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@DateTime", dateTime);
                         command.Parameters.AddWithValue("@BloodType", bloodType);
                         command.Parameters.AddWithValue("@Quantity", quantity);
+                        command.Parameters.AddWithValue("@Process", process);
                         command.Parameters.AddWithValue("@StaffId", staffId);
                         command.Parameters.AddWithValue("@AppointmentId", appointmentId);
 

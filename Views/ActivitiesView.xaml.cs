@@ -282,12 +282,80 @@ namespace WPFApp.Views
             // Generate the receipt
             bool success;
             string errorMessage;
-            success = receiptRepository.AddReceipt(DateTime.Now, bloodType, quantity, staffId, appointmentId, out errorMessage);
+            success = receiptRepository.AddReceipt(DateTime.Now, bloodType, quantity, "Donation", staffId, appointmentId, out errorMessage);
 
 
             if (success)
             {
                 SetStatusMessage("Receipt generated successfully!", isError: false);
+                ResetInputFields();
+            }
+            else
+            {
+                SetStatusMessage($"Error: {errorMessage}", isError: true);
+            }
+        }
+
+        private void GenerateReceivingReceipt_Click(object sender, RoutedEventArgs e)
+        {
+            int requestId;
+
+            if (!int.TryParse(RequestIDReceivingTextBox.Text, out requestId))
+            {
+                SetStatusMessage($"Error: Enter a valid Request ID", isError: true);
+                ResetInputFields();
+                return;
+            }
+
+            // Retrieve the user's staff ID
+            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+            int staffId;
+            int.TryParse(user.Id, out staffId);
+
+            // Retrieve the patient's blood type and quantity from the Request table
+            string bloodType;
+            int quantity;
+            string _connectionString = "Server=MUHAMMAD-MAIZ-N\\MSSQLSERVER22; Database=BloodBank; Integrated Security=true";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT [Patient_ID], [Request_Quantity] FROM [Request] WHERE [Request_ID] = @RequestId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@RequestId", requestId);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int patientId = reader.GetInt32(0);
+                            quantity = reader.GetInt32(1);
+
+                            // Close the first data reader
+                            reader.Close();
+
+                            // Retrieve the patient's blood type from the Patient table
+                            string bloodTypeQuery = "SELECT [Patient_BloodType] FROM [Patient] WHERE [Patient_ID] = @PatientId";
+                            using (SqlCommand bloodTypeCommand = new SqlCommand(bloodTypeQuery, connection))
+                            {
+                                bloodTypeCommand.Parameters.AddWithValue("@PatientId", patientId);
+                                bloodType = bloodTypeCommand.ExecuteScalar()?.ToString();
+                            }
+                        }
+                        else
+                        {
+                            SetStatusMessage($"Error: Request with ID {requestId} not found", isError: true);
+                            ResetInputFields();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Generate the receipt
+            string errorMessage;
+            if (receiptRepository.AddReceipt(DateTime.Now, bloodType, quantity, "Receiving", staffId, requestId, out errorMessage))
+            {
+                SetStatusMessage("Receiving receipt generated successfully!", isError: false);
                 ResetInputFields();
             }
             else
@@ -319,6 +387,9 @@ namespace WPFApp.Views
             RequestDatePicker.SelectedDate = null;
             RequestQuantityTextBox.Text = string.Empty;
             RequestIDTextBox.Text = string.Empty;
+            RequestIDReceivingTextBox.Text = string.Empty;
+            QuantityDonationTextBox.Text = string.Empty;
+            AppIDDonationTextBox.Text = string.Empty;
         }
     }
 }

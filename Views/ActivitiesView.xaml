@@ -14,17 +14,18 @@
     <Grid VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="49"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="49"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="53"/>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="51"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Manage Appointments"
@@ -34,10 +35,8 @@
                    FontSize="18"
                    FontWeight="SemiBold" 
                    VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,0">
-        </TextBlock>
-        <Grid HorizontalAlignment="Center" Grid.Row="1">
+                   HorizontalAlignment="Center" Height="22" Width="214"/>
+        <Grid HorizontalAlignment="Center" Grid.Row="1" Width="860">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="210" />
@@ -114,7 +113,7 @@
                     Click="CreateAppButton_Click">
             </Button>
         </Grid>
-        <Grid HorizontalAlignment="Center" Grid.Row="2">
+        <Grid HorizontalAlignment="Center" Grid.Row="2" Width="860">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="*" />
@@ -168,10 +167,8 @@
                    FontSize="18"
                    FontWeight="SemiBold"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,0">
-        </TextBlock>
-        <Grid HorizontalAlignment="Center" Grid.Row="4">
+                   HorizontalAlignment="Center" Height="22" Width="176"/>
+        <Grid HorizontalAlignment="Center" Grid.Row="4" Width="860">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="210" />
@@ -233,10 +230,8 @@
                    FontSize="18"
                    FontWeight="SemiBold"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,0">
-        </TextBlock>
-        <Grid HorizontalAlignment="Center" Grid.Row="6">
+                   HorizontalAlignment="Center" Height="22" Width="166"/>
+        <Grid HorizontalAlignment="Center" Grid.Row="7" Margin="0,0,0,3" Width="860">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="210" />
@@ -308,7 +303,7 @@
                     Click="CreateRequestButton_Click">
             </Button>
         </Grid>
-        <Grid HorizontalAlignment="Center" Grid.Row="7">
+        <Grid HorizontalAlignment="Center" Grid.Row="8" Margin="0,0,0,8" Width="860">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="*" />
@@ -354,16 +349,14 @@
             </Button>
         </Grid>
         <TextBlock Text="Manage Transfusions"
-                   Grid.Row="8"
+                   Grid.Row="9"
                    Foreground="White"
                    FontFamily="Montserrat"
                    FontSize="18"
                    FontWeight="SemiBold"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,0">
-        </TextBlock>
-        <Grid HorizontalAlignment="Center" Grid.Row="9">
+                   HorizontalAlignment="Center" Height="22" Width="198"/>
+        <Grid HorizontalAlignment="Center" Grid.Row="10" Width="860">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="210" />
@@ -378,15 +371,16 @@
                            Foreground="White"
                            FontFamily="Montserrat"
                            FontSize="12"/>
-                <TextBox     Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
+                <TextBox    x:Name="RequestIDReceivingTextBox" 
+                            Width="188" Height="29"
+                            FontSize="10"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"/>
             </StackPanel>
             <Button Grid.Column="4"
                     Content="Generate Receipt"
@@ -395,12 +389,13 @@
                     FontWeight="Medium"
                     FontFamily="Montserrat"
                     Cursor="Hand"
-                    Margin="0,9,0,0">
+                    Margin="0,9,0,0"
+                    Click="GenerateReceivingReceipt_Click">
             </Button>
 
         </Grid>
 
-        <Grid Grid.Row="10">
+        <Grid Grid.Row="11">
             <TextBlock  x:Name="StatusMessageTextBlock"
                         Text=""
                         Foreground="White"
