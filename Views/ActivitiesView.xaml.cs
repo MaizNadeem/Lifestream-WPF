@@ -267,7 +267,7 @@ namespace WPFApp.Views
 
             // Retrieve the patient's blood type from the Appointments table
             string bloodType;
-            string _connectionString = "Server=MUHAMMAD-MAIZ-N\\MSSQLSERVER22; Database=BloodBank; Integrated Security=true";
+            string _connectionString = "Server=tcp:database-server-bds.database.windows.net,1433;Initial Catalog=BloodBank;Persist Security Info=False;User ID=maiznadeem;Password=SnC2ApayPpi48b7;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string bloodTypeQuery = "SELECT [Donor_BloodType] FROM [Donor] WHERE [Donor_ID] =  (SELECT [Donor_ID] FROM [Appointment] WHERE [ID] = @AppointmentId)";
@@ -315,7 +315,7 @@ namespace WPFApp.Views
             // Retrieve the patient's blood type and quantity from the Request table
             string bloodType;
             int quantity;
-            string _connectionString = "Server=MUHAMMAD-MAIZ-N\\MSSQLSERVER22; Database=BloodBank; Integrated Security=true";
+            string _connectionString = "Server=tcp:database-server-bds.database.windows.net,1433;Initial Catalog=BloodBank;Persist Security Info=False;User ID=maiznadeem;Password=SnC2ApayPpi48b7;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT [Patient_ID], [Request_Quantity] FROM [Request] WHERE [Request_ID] = @RequestId";

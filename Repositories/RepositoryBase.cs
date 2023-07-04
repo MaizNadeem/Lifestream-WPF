@@ -12,7 +12,7 @@ namespace WPFApp.Repositories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=MUHAMMAD-MAIZ-N\\MSSQLSERVER22; Database=BloodBank; Integrated Security=true";
+            _connectionString = "Server=tcp:database-server-bds.database.windows.net,1433;Initial Catalog=BloodBank;Persist Security Info=False;User ID=maiznadeem;Password=SnC2ApayPpi48b7;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         }
         protected SqlConnection GetConnection()
         {
