@@ -27,55 +27,30 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         Grid.Column="0">
-                <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="white"/>
-                <TextBox Text="Search..."   
-                    FontSize="12"
-                         Height="33"
-                           Width="177"
-                           Background="Transparent"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"
-                             Margin="5,0,0,0">
-                </TextBox>
                 <ComboBox
-                    x:Name="BloodTypeCombo" Margin="10,0,0,0" Width="170" Height="34" Text="--Select Type--"
+                    x:Name="HealthTypeCombo"
+                    Margin="10,0,0,0"
+                    Width="143"
+                    Height="34"
+                    Text="--Bag Health--"
                     FontSize="12"
                     FontFamily="Montserrat"
-                    Focusable="False" IsEditable="True" IsReadOnly="True">
-                    <ComboBoxItem Name="Item1">All Blood Types</ComboBoxItem>
-                    <ComboBoxItem Name="Item2">A+</ComboBoxItem>
-                    <ComboBoxItem Name="Item3">A-</ComboBoxItem>
-                    <ComboBoxItem Name="Item4">B+</ComboBoxItem>
-                    <ComboBoxItem Name="Item5">B-</ComboBoxItem>
-                    <ComboBoxItem Name="Item6">O+</ComboBoxItem>
-                    <ComboBoxItem Name="Item7">O-</ComboBoxItem>
-                    <ComboBoxItem Name="Item8">AB+</ComboBoxItem>
-                    <ComboBoxItem Name="Item9">AB-</ComboBoxItem>
-                </ComboBox>
-                <ComboBox
-                    x:Name="SizeTypeCombo" Margin="10,0,0,0" Width="143" Height="34" Text="--Select Size--"
-                    FontSize="12"
-                    FontFamily="Montserrat"
-                    Focusable="False" IsEditable="True" IsReadOnly="True">
-                    <ComboBoxItem Name="s1">All Sizes</ComboBoxItem>
-                    <ComboBoxItem Name="s2">Small</ComboBoxItem>
-                    <ComboBoxItem Name="s3">Medium</ComboBoxItem>
-                    <ComboBoxItem Name="s4">Large</ComboBoxItem>
+                    Focusable="False"
+                    IsEditable="True"
+                    IsReadOnly="True">
+                    <ComboBoxItem Name="s1">All Bags</ComboBoxItem>
+                    <ComboBoxItem Name="s2">Fresh</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
             <Button Grid.Column="1"                           
-                            Content="Search"                            
-                            FontSize="12"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            BorderThickness="0"
-                            Foreground="White"
-                    VerticalAlignment="Center">
+                    Content="Search"                            
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Click="SearchButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#a51214"/>
@@ -104,15 +79,49 @@
                 Background="#990000"
                 CornerRadius="10" 
                 Padding="10">
-            <ui:DataGrid Name="StockGrid" 
-                  ColumnWidth="*"
-                  Background="#990000"
-                  BorderThickness="0"
-                  IsReadOnly="True"
-                  FontFamily="Montserrat">
+            <ui:DataGrid Name="ReceiptGrid"
+                         ColumnWidth="Auto"
+                         Background="#990000"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         FontFamily="Calibri"
+                         ScrollViewer.CanContentScroll="False"
+                         HorizontalAlignment="Stretch"
+                         Margin="10"
+                         VerticalAlignment="Stretch"
+                         AutoGenerateColumns="False"
+                         ItemsSource="{Binding StockItems}">
+                <ui:DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontFamily" Value="Montserrat" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Background" Value="#990000" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="0 10"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="FontSize" Value="10" />
+                        <Setter Property="Margin" Value="0,5" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#E2E2E2" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:DataGrid.Resources>
+                <ui:DataGrid.Columns>
+                    <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="*" />
+                    <DataGridTextColumn Header="Bag Type" Binding="{Binding BagType}" Width="*" />
+                </ui:DataGrid.Columns>
             </ui:DataGrid>
         </Border>
     </Grid>
-
-
 </UserControl>

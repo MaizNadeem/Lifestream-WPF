@@ -15,7 +15,16 @@ namespace WPFApp.Repositories
     {
         public void Add(UserModel userModel)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO [Staff] ([username], [password]) VALUES (@username, @password)";
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = userModel.Username;
+                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = userModel.Password;
+                command.ExecuteNonQuery();
+            }
         }
 
         public bool AuthenticateUser(NetworkCredential credential)
@@ -26,45 +35,73 @@ namespace WPFApp.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from [Staff] where username=@username and [password]=@password";
+                command.CommandText = "SELECT COUNT(*) FROM [Staff] WHERE [username] = @username AND [password] = @password";
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
-                validUser = command.ExecuteScalar() == null ? false : true;
+                validUser = (int)command.ExecuteScalar() > 0;
             }
             return validUser;
         }
 
         public void Edit(UserModel userModel)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE [Staff] SET [username] = @username, [password] = @password WHERE [id] = @id";
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = userModel.Username;
+                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = userModel.Password;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = userModel.Id;
+                command.ExecuteNonQuery();
+            }
         }
+
         public IEnumerable<UserModel> GetByAll()
         {
-            throw new NotImplementedException();
+            List<UserModel> users = new List<UserModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM [Staff]";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        UserModel user = new UserModel()
+                        {
+                            Id = reader["id"].ToString(),
+                            Username = reader["username"].ToString(),
+                            Password = string.Empty
+                        };
+                        users.Add(user);
+                    }
+                }
+            }
+            return users;
         }
+
         public UserModel GetById(int id)
         {
-            throw new NotImplementedException();
-        }
-        public UserModel GetByUsername(string username)
-        {
-            
             UserModel user = null;
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select *from [Staff] where username=@username";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
+                command.CommandText = "SELECT * FROM [Staff] WHERE [id] = @id";
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
                         user = new UserModel()
                         {
-                            Id = reader[0].ToString(),
-                            Username = reader[1].ToString(),
+                            Id = reader["id"].ToString(),
+                            Username = reader["username"].ToString(),
                             Password = string.Empty
                         };
                     }
@@ -72,9 +109,44 @@ namespace WPFApp.Repositories
             }
             return user;
         }
+
+        public UserModel GetByUsername(string username)
+        {
+            UserModel user = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM [Staff] WHERE [username] = @username";
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserModel()
+                        {
+                            Id = reader["id"].ToString(),
+                            Username = reader["username"].ToString(),
+                            Password = string.Empty
+                        };
+                    }
+                }
+            }
+            return user;
+        }
+
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM [Staff] WHERE [id] = @id";
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
