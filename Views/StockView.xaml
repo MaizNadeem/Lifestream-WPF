@@ -79,7 +79,7 @@
                 Background="#990000"
                 CornerRadius="10" 
                 Padding="10">
-            <ui:DataGrid Name="ReceiptGrid"
+            <ui:DataGrid Name="StockGrid"
                          ColumnWidth="Auto"
                          Background="#990000"
                          BorderThickness="0"

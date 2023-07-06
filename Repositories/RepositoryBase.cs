@@ -7,14 +7,14 @@ using System.Data.SqlClient;
 
 namespace WPFApp.Repositories
 {
-    public abstract class RepositoryBase
+    public class RepositoryBase
     {
-        private readonly string _connectionString;
+        private readonly string _connectionString = "Server=tcp:database-server-bds.database.windows.net,1433;Initial Catalog=BloodBank;Persist Security Info=False;User ID=maiznadeem;Password=SnC2ApayPpi48b7;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public RepositoryBase()
         {
-            _connectionString = "Server=tcp:database-server-bds.database.windows.net,1433;Initial Catalog=BloodBank;Persist Security Info=False;User ID=maiznadeem;Password=SnC2ApayPpi48b7;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
         }
-        protected SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             return new SqlConnection(_connectionString);
         }

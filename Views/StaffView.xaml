@@ -11,25 +11,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.DataContext>
-        <viewModel:StockViewModel/>
+        <viewModel:StaffViewModel/>
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <XmlDataProvider x:Key="MockList" XPath="/MockObjects/*" >
-            <x:XData >
-                <MockObjects xmlns="">
-                    <MockObject  ID="874" Name="Diane J Browning" Designation="Doctor" Shift="Morning" Username="diane1122" Salary="$100,000"  Contact="408-476-1769" />
-                    <MockObject  ID="843" Name="Ruth R Vogt" Designation="Doctor" Shift="Evening" Username="ruthvogt22" Salary="$120,000"  Contact="318-307-0358" />
-                    <MockObject  ID="657" Name="Mary J Coronado" Designation="Doctor" Shift="Morning" Username="meetmary616" Salary="$115,000"  Contact="773-614-4672" />
-                    />
-                </MockObjects>
-            </x:XData>
-        </XmlDataProvider>
-    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="0"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -41,19 +29,19 @@
                         VerticalAlignment="Top"
                         Grid.Column="0">
                 <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="white"/>
-                <TextBox Text="Search..."   
-                    FontSize="12"
-                         Height="33"
-                           Width="177"
-                           Background="Transparent"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             CaretBrush="{StaticResource plainTextColor3}"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"
-                             Margin="5,0,0,0">
+                <TextBox    Text="Search..."   
+                            FontSize="12"
+                            Height="33"
+                            Width="177"
+                            Background="Transparent"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"                            
+                            Foreground="white"
+                            CaretBrush="{StaticResource plainTextColor3}"
+                            BorderBrush="white"
+                            BorderThickness="0,0,0,1"                             
+                            VerticalContentAlignment="Center"
+                            Margin="5,0,0,0">
                 </TextBox>
                 <ComboBox
                     x:Name="BloodTypeCombo" Margin="10,0,0,0" Width="200" Height="34" Text="--Select Designation--"
@@ -69,12 +57,12 @@
 
             </StackPanel>
             <Button Grid.Column="1"                           
-                            Content="Search"                            
-                            FontSize="12"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            BorderThickness="0"
-                            Foreground="White"
+                    Content="Search"                            
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Foreground="White"
                     VerticalAlignment="Center">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -100,61 +88,74 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Text="From: "
-                       VerticalAlignment="Center"
-                       Foreground="White"
-                       FontFamily="Montserrat"
-                       FontSize="12"
-                       Margin="31,0,31,0"/>
-            <TextBox Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
-            <TextBlock Text="To: "
-                       VerticalAlignment="Center"
-                       Foreground="White"
-                       FontFamily="Montserrat"
-                       FontSize="12"
-                       Margin="35,0,31,0"/>
-            <TextBox  Width="188" Height="29"
-                             FontSize="10"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="white"
-                             BorderBrush="white"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"/>
-        </StackPanel>
         <Border Grid.Row="2"
                 Background="#990000"
                 CornerRadius="10" 
-                Padding="10"
-                DataContext="{Binding Source={StaticResource MockList}}">
-            <ui:DataGrid Name="AppointmentsGrid" 
-                  ColumnWidth="*"
-                  Background="#990000"
-                  BorderThickness="0"
-                  IsReadOnly="True"
-                  FontFamily="Montserrat"
-                  ScrollViewer.CanContentScroll="False"
-                  HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" 
-                  ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" 
-                  AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding XPath=@ID}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Name" Binding="{Binding XPath=@Name}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Designation" Binding="{Binding XPath=@Designation}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Shift" Binding="{Binding XPath=@Shift}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Username" Binding="{Binding XPath=@Username}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Salary" Binding="{Binding XPath=@Salary}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Contact" Binding="{Binding XPath=@Contact}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </ui:DataGrid>
+                Padding="10">
+            <ui:DataGrid Name="StaffGrid"
+                 ColumnWidth="*"
+                 Background="#990000"
+                 BorderThickness="0"
+                 IsReadOnly="True"
+                 FontFamily="Calibri"
+                 ScrollViewer.CanContentScroll="False"
+                 HorizontalAlignment="Stretch"
+                 Margin="10"
+                 VerticalAlignment="Stretch"
+                 AutoGenerateColumns="False"
+                 ItemsSource="{Binding Users}">
+                    <ui:DataGrid.Resources>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Padding" Value="8"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontFamily" Value="Montserrat" />
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="Background" Value="#990000" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="Padding" Value="0 10"/>
+                        </Style>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="FontSize" Value="10" />
+                            <Setter Property="Margin" Value="0,5" />
+                            <Setter Property="Foreground" Value="Black" />
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#E2E2E2" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ui:DataGrid.Resources>
+                    <ui:DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" />
+                        <DataGridTemplateColumn Header="Photo" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid Width="40" Height="40">
+                                        <Ellipse Width="30" Height="30" Stroke="White" StrokeThickness="1">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding Photo}" Stretch="UniformToFill" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding StaffName}" Width="*"/>
+                        <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="*" />
+                        <DataGridTextColumn Header="Designation" Binding="{Binding Designation}" Width="*" />
+                        <DataGridTextColumn Header="Salary" Binding="{Binding Salary}" Width="*" />
+                        <DataGridTextColumn Header="DOB" Binding="{Binding DOB, StringFormat='{}{0:MM/dd/yyyy}'}" Width="*" />
+                        <DataGridTextColumn Header="Contact" Binding="{Binding Contact}" Width="*" />
+                        <DataGridTextColumn Header="Shift" Binding="{Binding StaffShift}" Width="*" />
+                        <DataGridTextColumn Header="Username" Binding="{Binding UserName}" Width="*" />
+                        <DataGridTextColumn Header="Password" Binding="{Binding Password}" Width="*" />
+                    </ui:DataGrid.Columns>
+                </ui:DataGrid>
         </Border>
     </Grid>
 
