@@ -3,31 +3,79 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using WPFApp.Models;
-using WPFApp.Repositories;
 
 namespace WPFApp.Repositories
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
-        public void Add(UserModel userModel)
+
+        public void AddStaff(UserModel user)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO [Staff] ([username], [password]) VALUES (@username, @password)";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = userModel.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = userModel.Password;
+                command.CommandText = "INSERT INTO [Staff] ([staff_name], [gender], [designation], [salary], [DOB], [contact], [staff_shift], [username], [password], [photo]) " +
+                    "VALUES (@staffName, @gender, @designation, @salary, @dob, @contact, @shift, @username, @password, @photo)";
+                command.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = user.StaffName;
+                command.Parameters.Add("@gender", SqlDbType.NVarChar).Value = user.Gender;
+                command.Parameters.Add("@designation", SqlDbType.NVarChar).Value = user.Designation;
+                command.Parameters.Add("@salary", SqlDbType.Int).Value = user.Salary;
+                command.Parameters.Add("@dob", SqlDbType.DateTime).Value = user.DOB;
+                command.Parameters.Add("@contact", SqlDbType.NVarChar).Value = user.Contact;
+                command.Parameters.Add("@shift", SqlDbType.NVarChar).Value = user.StaffShift;
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = user.UserName;
+                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = user.Password;
+                command.Parameters.Add("@photo", SqlDbType.VarBinary).Value = user.Photo;
+
                 command.ExecuteNonQuery();
             }
         }
+
+        public void UpdateStaff(UserModel user)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE [Staff] SET [staff_name] = @staffName, [gender] = @gender, [designation] = @designation, [salary] = @salary, " +
+                    "[DOB] = @dob, [contact] = @contact, [staff_shift] = @shift, [username] = @username, [password] = @password, [photo] = @photo " +
+                    "WHERE [id] = @id";
+                command.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = user.StaffName;
+                command.Parameters.Add("@gender", SqlDbType.NVarChar).Value = user.Gender;
+                command.Parameters.Add("@designation", SqlDbType.NVarChar).Value = user.Designation;
+                command.Parameters.Add("@salary", SqlDbType.Int).Value = user.Salary;
+                command.Parameters.Add("@dob", SqlDbType.DateTime).Value = user.DOB;
+                command.Parameters.Add("@contact", SqlDbType.NVarChar).Value = user.Contact;
+                command.Parameters.Add("@shift", SqlDbType.NVarChar).Value = user.StaffShift;
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = user.UserName;
+                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = user.Password;
+                command.Parameters.Add("@photo", SqlDbType.VarBinary).Value = user.Photo;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = user.Id;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteStaff(int id)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM [Staff] WHERE [id] = @id";
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
 
         public bool AuthenticateUser(NetworkCredential credential)
         {
@@ -43,21 +91,6 @@ namespace WPFApp.Repositories
                 validUser = (int)command.ExecuteScalar() > 0;
             }
             return validUser;
-        }
-
-        public void Edit(UserModel userModel)
-        {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "UPDATE [Staff] SET [username] = @username, [password] = @password WHERE [id] = @id";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = userModel.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = userModel.Password;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = userModel.Id;
-                command.ExecuteNonQuery();
-            }
         }
 
         public IEnumerable<UserModel> GetByAll()
@@ -162,19 +195,6 @@ namespace WPFApp.Repositories
                 }
             }
             return user;
-        }
-
-        public void Remove(int id)
-        {
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "DELETE FROM [Staff] WHERE [id] = @id";
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                command.ExecuteNonQuery();
-            }
         }
 
         public void UpdateAllPhotosToDefault()
