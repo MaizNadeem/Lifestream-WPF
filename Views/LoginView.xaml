@@ -6,6 +6,7 @@
         xmlns:viewModel="clr-namespace:WPFApp.ViewModels"
         xmlns:customControls="clr-namespace:WPFApp.CustomControls"
         mc:Ignorable="d"
+        Icon="/WPFApp;component/Logo.ico"
         Title="LoginView" Height="550" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"

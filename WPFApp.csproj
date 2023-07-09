@@ -340,5 +340,8 @@
   <ItemGroup>
     <Resource Include="Images\myprofilecopy.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Logo.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
