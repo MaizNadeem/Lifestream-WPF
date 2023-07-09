@@ -4,6 +4,7 @@ using System.Windows.Media.Imaging;
 using System.Reflection;
 using WPFApp.Repositories;
 using WPFApp.Models;
+using System.IO;
 
 namespace WPFApp.ViewModels
 {
@@ -524,15 +525,27 @@ namespace WPFApp.ViewModels
             byte[] byteArray = null;
             if (bitmapImage != null)
             {
-                using (var memoryStream = new System.IO.MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    BitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                    encoder.Save(memoryStream);
-                    byteArray = memoryStream.ToArray();
+                    int qualityLevel = 100;
+                    while (qualityLevel > 0 && (byteArray == null || byteArray.Length > 50000))
+                    {
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                        encoder.QualityLevel = qualityLevel;
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+                        memoryStream.SetLength(0);
+                        encoder.Save(memoryStream);
+                        byteArray = memoryStream.ToArray();
+
+                        qualityLevel -= 5;
+                    }
                 }
             }
             return byteArray;
         }
+
+
+
     }
 }

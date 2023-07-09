@@ -228,5 +228,50 @@ namespace WPFApp.Repositories
             return null;
         }
 
+        public bool UpdateUser(UserModel user)
+        {
+            try
+            {
+                using (SqlConnection connection = GetConnection())
+                {
+                    connection.Open();
+
+                    // Prepare the SQL update statement
+                    string query = "UPDATE [Staff] SET [staff_name] = @staffName, [gender] = @gender, [designation] = @designation, [salary] = @salary, " +
+                    "[DOB] = @dob, [contact] = @contact, [staff_shift] = @shift, [username] = @username, [password] = @password, [photo] = @photo " +
+                    "WHERE [id] = @id";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Set the parameter values
+                        command.Parameters.AddWithValue("@id", user.Id);
+                        command.Parameters.AddWithValue("@staffName", user.StaffName);
+                        command.Parameters.AddWithValue("@dob", user.DOB);
+                        command.Parameters.AddWithValue("@gender", user.Gender);
+                        command.Parameters.AddWithValue("@designation", user.Designation);
+                        command.Parameters.AddWithValue("@shift", user.StaffShift);
+                        command.Parameters.AddWithValue("@salary", user.Salary);
+                        command.Parameters.AddWithValue("@contact", user.Contact);
+                        command.Parameters.AddWithValue("@username", user.UserName);
+                        command.Parameters.AddWithValue("@password", user.Password);
+                        command.Parameters.AddWithValue("@photo", user.Photo);
+
+                        // Execute the update statement
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occur during the database update
+                // Log the exception for further investigation
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+
     }
 }
