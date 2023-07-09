@@ -3,20 +3,18 @@ using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Threading;
+using System.Windows;
 using System.Windows.Input;
 using WPFApp.Models;
 using WPFApp.Repositories;
 using System.Reflection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Net;
-using System.Security.Principal;
+using WPFApp.Views;
 
 namespace WPFApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         //Fields
-        private bool _isViewVisible = true;
         private UserAccountModel _currentUserAccount;
         private ViewModelBase _currentChildView;
         private string _caption;
@@ -25,21 +23,6 @@ namespace WPFApp.ViewModels
         private IUserRepository userRepository;
 
         //Properties
-
-        public bool IsViewVisible
-        {
-            get
-            {
-                return _isViewVisible;
-            }
-
-            set
-            {
-                _isViewVisible = value;
-                OnPropertyChanged(nameof(IsViewVisible));
-            }
-        }
-
         public UserAccountModel CurrentUserAccount
         {
             get
@@ -151,7 +134,13 @@ namespace WPFApp.ViewModels
         }
         private void ExecuteLogoutCommand(object obj)
         {
-            IsViewVisible = false;
+            var loginView = new LoginView();
+            loginView.Show();
+            if (Application.Current.MainWindow != null)
+            {
+                Application.Current.MainWindow.Close();
+            }
+            Application.Current.MainWindow = loginView;
         }
 
         private void ExecuteShowHomeViewCommand(object obj)

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security;
 using System.Security.Principal;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPFApp.Models;
 using WPFApp.Repositories;
+using WPFApp.Views;
 
 namespace WPFApp.ViewModels {
     public class LoginViewModel : ViewModelBase
@@ -18,7 +16,6 @@ namespace WPFApp.ViewModels {
         private string _username;
         private SecureString _password;
         private string _errorMessage;
-        private bool _isViewVisible = true;
 
         private IUserRepository userRepository;
 
@@ -65,20 +62,6 @@ namespace WPFApp.ViewModels {
             }
         }
 
-        public bool IsViewVisible
-        {
-            get
-            {
-                return _isViewVisible;
-            }
-
-            set
-            {
-                _isViewVisible = value;
-                OnPropertyChanged(nameof(IsViewVisible));
-            }
-        }
-
         //-> Commands
         public ICommand LoginCommand { get; }
         public ICommand RecoverPasswordCommand { get; }
@@ -109,15 +92,21 @@ namespace WPFApp.ViewModels {
             var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
             if (isValidUser)
             {
-                Thread.CurrentPrincipal = new GenericPrincipal(
-                    new GenericIdentity(Username), null);
-                IsViewVisible = false;
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+                var mainView = new MainView();
+                mainView.Show();
+                if (Application.Current.MainWindow != null)
+                {
+                    Application.Current.MainWindow.Close();
+                }
+                Application.Current.MainWindow = mainView;
             }
             else
             {
                 ErrorMessage = "* Invalid username or password";
             }
         }
+
 
         private void ExecuteRecoverPassCommand(string username, string email)
         {

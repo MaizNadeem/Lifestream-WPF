@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFApp.Views"
         xmlns:viewModel="clr-namespace:WPFApp.ViewModels"
         xmlns:customControls="clr-namespace:WPFApp.CustomControls"
         mc:Ignorable="d"
@@ -18,14 +17,6 @@
     <Window.DataContext>
         <viewModel:LoginViewModel/>
     </Window.DataContext>
-
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilty"/>
-    </Window.Resources>
-
-    <Window.Visibility>
-        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibilty}"/>
-    </Window.Visibility>
 
     <Border CornerRadius="12">
         <Border.Background>
@@ -234,7 +225,7 @@
                                TextWrapping="Wrap"/>
 
                     <Button x:Name="btnLogin"  
-                            Command="{Binding LoginCommand}"
+                            Command="{Binding LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                             BorderThickness="0"
                             Content="LOG IN"
                             Foreground="White"

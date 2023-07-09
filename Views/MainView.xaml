@@ -20,8 +20,6 @@
 
     <Window.Resources>
 
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
-        
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
@@ -66,10 +64,6 @@
         </DataTemplate>
 
     </Window.Resources>
-
-    <Window.Visibility>
-        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
-    </Window.Visibility>
 
     <Border CornerRadius="10"                    
             BorderThickness="1">
