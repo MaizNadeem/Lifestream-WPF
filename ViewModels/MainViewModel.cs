@@ -7,12 +7,16 @@ using System.Windows.Input;
 using WPFApp.Models;
 using WPFApp.Repositories;
 using System.Reflection;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Net;
+using System.Security.Principal;
 
 namespace WPFApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         //Fields
+        private bool _isViewVisible = true;
         private UserAccountModel _currentUserAccount;
         private ViewModelBase _currentChildView;
         private string _caption;
@@ -21,6 +25,21 @@ namespace WPFApp.ViewModels
         private IUserRepository userRepository;
 
         //Properties
+
+        public bool IsViewVisible
+        {
+            get
+            {
+                return _isViewVisible;
+            }
+
+            set
+            {
+                _isViewVisible = value;
+                OnPropertyChanged(nameof(IsViewVisible));
+            }
+        }
+
         public UserAccountModel CurrentUserAccount
         {
             get
@@ -78,6 +97,7 @@ namespace WPFApp.ViewModels
         }
 
         //--> Commands
+        public ICommand LogoutCommand { get; }
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowDonorViewCommand { get; }
         public ICommand ShowPatientViewCommand { get; }
@@ -100,6 +120,8 @@ namespace WPFApp.ViewModels
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
 
             //Initialize commands
+            LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
+
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowDonorViewCommand = new ViewModelCommand(ExecuteShowDonorViewCommand);
             ShowPatientViewCommand = new ViewModelCommand(ExecuteShowPatientViewCommand);
@@ -111,9 +133,14 @@ namespace WPFApp.ViewModels
             ShowReceiptViewCommand = new ViewModelCommand(ExecuteShowReceiptViewCommand);
             ShowStockViewCommand = new ViewModelCommand(ExecuteShowStockViewCommand);
             if (user.Designation == "Admin")
-            { 
+            {
                 ShowStaffViewCommand = new ViewModelCommand(ExecuteShowStaffViewCommand);
                 ShowStaffsInfoViewCommand = new ViewModelCommand(ExecuteShowStaffsInfoViewCommand);
+            }
+            else 
+            {
+                ShowStaffViewCommand = new ViewModelCommand(ExecuteShowAccessDeniedViewCommand);
+                ShowStaffsInfoViewCommand = new ViewModelCommand(ExecuteShowAccessDeniedViewCommand);
             }
             ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
 
@@ -121,6 +148,10 @@ namespace WPFApp.ViewModels
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
+        }
+        private void ExecuteLogoutCommand(object obj)
+        {
+            IsViewVisible = false;
         }
 
         private void ExecuteShowHomeViewCommand(object obj)
@@ -200,6 +231,12 @@ namespace WPFApp.ViewModels
             CurrentChildView = new ProfileViewModel();
             Caption = "Your Profile";
             Icon = IconChar.User;
+        }
+        private void ExecuteShowAccessDeniedViewCommand(object obj)
+        {
+            CurrentChildView = new AccessDeniedViewModel();
+            Caption = "No Access";
+            Icon = IconChar.Xmark;
         }
         private void LoadCurrentUserData()
         {
