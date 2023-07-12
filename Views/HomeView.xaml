@@ -13,10 +13,18 @@
     </UserControl.DataContext>
 
     <Grid>
-        <Grid>
-            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right">
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                    <lvc:Axis Title="Donations" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Month" Labels="{Binding Labels}"></lvc:Axis>

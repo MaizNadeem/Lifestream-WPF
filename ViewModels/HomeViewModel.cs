@@ -1,5 +1,4 @@
 ﻿using LiveCharts;
-using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
@@ -43,8 +42,8 @@ namespace WPFApp.ViewModels
                 {
                     Title = bloodType,
                     Values = new ChartValues<double>(donationCounts),
-                    PointGeometry = null,
-                    LineSmoothness = 0.3,
+                    PointGeometrySize = 5,
+                    LineSmoothness = 0.5,
                 });
             }
 
