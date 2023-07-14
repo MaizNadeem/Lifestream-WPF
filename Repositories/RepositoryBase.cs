@@ -13,7 +13,7 @@ namespace WPFApp.Repositories
         
         public RepositoryBase()
         {
-            _connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+            _connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
         }
         
         public SqlConnection GetConnection()
