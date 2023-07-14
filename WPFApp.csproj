@@ -114,6 +114,7 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AppointmentModel.cs" />
+    <Compile Include="Models\BloodTypeCount.cs" />
     <Compile Include="Models\BloodTypeGraphData.cs" />
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Models\DonorModel.cs" />
@@ -305,7 +306,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="WPFApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
