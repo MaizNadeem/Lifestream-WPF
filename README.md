@@ -3,19 +3,28 @@
 ## About
 Lifestream is a blood donation management system designed to streamline blood donation activities and facilitate efficient management of donor information, appointments, and requests. It provides a user-friendly interface for staff members to perform various tasks related to blood donations and ensures smooth coordination between donors, appointments, and blood requests.
 
+## Documentation
+Detailed documentation for the Lifestream - Blood Bank System can be found [here](https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Documentation.pdf).
+
 ## Screenshots
 Here are some screenshots of the Lifestream - Blood Bank System:
 
 ### Login Screen
-![Login Screen](https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/Login.png?raw=true)
+<p align="center">
+  <img src="https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/Login.png?raw=true" alt="Login Screen">
+</p>
 
 ### Main View
-![Main View](https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/Dashboard.png?raw=true)
+<p align="center">
+  <img src="https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/Dashboard.png?raw=true" alt="Main View">
+</p>
 
 ### Other Views
-![Donor View](https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/View%20Donors.png?raw=true)
-![Staff View](https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/View%20Staff.png?raw=true)
-![Staff Info View](https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/Staff's%20Info.png?raw=true)
+<p align="center">
+  <img src="https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/View%20Donors.png?raw=true" alt="Donor View">
+  <img src="https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/View%20Staff.png?raw=true" alt="Staff View">
+  <img src="https://github.com/MaizNadeem/Lifestream-WPF/blob/master/Frontend%20Screenshots/Staff's%20Info.png?raw=true" alt="Staff Info View">
+</p>
 
 You can find all the application screenshots [here](https://github.com/MaizNadeem/Lifestream-WPF/tree/master/Frontend%20Screenshots).
 
@@ -28,11 +37,8 @@ The ERD illustrates the logical structure and relationships between the entities
 The Lifestream - Blood Bank System is built using the following technologies:
 
 - **.NET Framework 4.8:** The application is developed using the .NET Framework 4.8, which provides a robust and stable development platform for Windows applications.
-
 - **WPF (Windows Presentation Foundation):** The user interface is built using WPF, a powerful framework for creating desktop applications with rich UI and interactive user experiences.
-
 - **MSSQL Server / Azure Database:** The application uses either Microsoft SQL Server or Azure Database as the backend database to store and manage donor information, appointments, and requests.
-
 - **NuGet Packages:**
   - **Lepoco:** Used for UI design and controls, providing a modern and visually appealing user interface.
   - **LiveCharts.Wpf:** Used for creating interactive and dynamic charts to visualize blood donation data.
@@ -64,18 +70,10 @@ To set up the database for the Lifestream - Blood Bank System, follow these step
 5. Select the downloaded BloodBank.bacpac file and follow the import wizard to restore the database.
 6. Once the database is restored, update the connection string in the `RepositoryBase.cs` file of the application to point to the newly restored database.
 
-## Installation
-To install the Lifestream - Blood Bank System on your Windows machine, follow these steps:
-
-1. Download the installation files from the [Install.rar](https://drive.google.com/file/d/1FtdHXHE4VaEmcc1aHR-ecpwvatUnHzYx/view?usp=sharing) folder.
-2. Extract the contents of the Install.rar file to a local directory.
-3. Inside the extracted folder, locate the `setup.exe` file.
-4. Double-click the `setup.exe` file to start the installation process.
-5. Follow the on-screen instructions to complete the installation.
-6. The Lifestream - Blood Bank System will be installed on your machine.
-7. To uninstall the application, go to "Apps and Features" or "Add or Remove Programs" in the Control Panel and uninstall the application from there.
-
-For any further assistance or questions, please refer to the project's [GitHub repository](https://github.com/MaizNadeem/Lifestream-WPF) or contact the project owner.
+## Additional Notes
+- Make sure to have Visual Studio (2019 or later) and .NET Framework 4.8 installed on your machine before proceeding with the deployment.
+- The `BloodBank.bacpac` file contains the pre-configured database schema for the Lifestream - Blood Bank System. You can use it to quickly set up the database.
+- For any issues or questions, please refer to the project's [GitHub repository](https://github.com/MaizNadeem/Lifestream-WPF) or contact the project owner.
 
 <hr>
 
