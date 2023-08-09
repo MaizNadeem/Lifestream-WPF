@@ -1,4 +1,4 @@
-[![Homyz Banner](https://raw.githubusercontent.com/MaizNadeem/Lifestream-WPF/main/Images/Banner.png)](https://drive.google.com/file/d/1FtdHXHE4VaEmcc1aHR-ecpwvatUnHzYx/view?usp=sharing)
+[![Lifestream Banner](https://raw.githubusercontent.com/MaizNadeem/Lifestream-WPF/master/Frontend%20Screenshots/Banner.png)](https://drive.google.com/file/d/1FtdHXHE4VaEmcc1aHR-ecpwvatUnHzYx/view?usp=sharing)
 
 # Lifestream - Blood Bank System
 
