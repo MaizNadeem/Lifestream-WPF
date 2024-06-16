@@ -1,4 +1,4 @@
-[![Lifestream Banner](https://raw.githubusercontent.com/MaizNadeem/Lifestream-WPF/master/Frontend%20Screenshots/Banner.png)](https://drive.google.com/file/d/1FtdHXHE4VaEmcc1aHR-ecpwvatUnHzYx/view?usp=sharing)
+[![Lifestream Banner](https://raw.githubusercontent.com/MaizNadeem/Lifestream-WPF/master/Frontend%20Screenshots/Banner.png)](https://drive.google.com/file/d/1nIkd2B33SWNDmx52lNxCo_Q8FhJ9_icL/view?usp=sharing)
 
 # Lifestream - Blood Bank System
 
@@ -10,7 +10,7 @@ Detailed documentation for the Lifestream - Blood Bank System can be found [here
 
 ## Installation Instructions
 
-1. Download the installation file by clicking on the following link: [Download Lifestream Installer](https://drive.google.com/file/d/1FtdHXHE4VaEmcc1aHR-ecpwvatUnHzYx/view?usp=sharing)
+1. Download the installation file by clicking on the following link: [Download Lifestream Installer](https://drive.google.com/file/d/1nIkd2B33SWNDmx52lNxCo_Q8FhJ9_icL/view?usp=sharing)
 2. Once the download is complete, locate the downloaded file named `Install.rar`.
 3. Extract the contents of the `Install.rar` file to a desired location on your computer.
 4. Open the extracted folder and navigate to the "Install" folder.
