@@ -152,7 +152,7 @@
                     </Border>
                 </Grid>
 
-                <StackPanel Width="220"
+                <StackPanel Width="250"
                             Grid.Row="1"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
@@ -258,23 +258,26 @@
                         </Button.Template>
                     </Button>
 
-                    <StackPanel Orientation="Horizontal"
+                    <StackPanel Orientation="Vertical"
                                 HorizontalAlignment="Center"
-                                Margin="0,15,0,0">
+                                Margin="0,15,0,0"
+								Width="250">
 
-                        <TextBlock Text="Forgot Password?"
+                        <TextBlock Text="Don't know Password?"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
-                               FontFamily="Montserrat"/>
+                               FontFamily="Montserrat"
+							   HorizontalAlignment="Center"/>
 
-                        <TextBlock Text="Reset"
-                               Foreground="White"
+                        <TextBlock Text="Username: johndoe Password: password1"
+                               Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Cursor="Hand"
-                               Margin="8,0,0,0"/>
+                               Margin="8,0,0,0"
+							   HorizontalAlignment="Center"/>
 
                     </StackPanel>
 

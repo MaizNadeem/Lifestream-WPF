@@ -71,9 +71,23 @@ namespace WPFApp.ViewModels {
         //Constructor
         public LoginViewModel()
         {
+            Username = "johndoe"; // Set your default username here
+            Password = ConvertToSecureString("password1");
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
+        }
+
+        private SecureString ConvertToSecureString(string password)
+        {
+            if (password == null)
+                throw new ArgumentNullException("password");
+
+            var securePassword = new SecureString();
+            foreach (char c in password)
+                securePassword.AppendChar(c);
+            securePassword.MakeReadOnly();
+            return securePassword;
         }
 
         private bool CanExecuteLoginCommand(object obj)
