@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WPFApp.Repositories
 {
@@ -13,9 +14,11 @@ namespace WPFApp.Repositories
         
         public RepositoryBase()
         {
-            _connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
+            // _connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
+            // _connectionString = ConfigurationManager.ConnectionStrings["AzureDbConnectionString"].ConnectionString;
+            _connectionString = "AZURE_CONNECTION_STRING";
         }
-        
+
         public SqlConnection GetConnection()
         {
             return new SqlConnection(_connectionString);
