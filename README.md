@@ -10,20 +10,14 @@ Detailed documentation for the Lifestream - Blood Bank System can be found [here
 
 ## Installation Instructions
 
-1. Download the installation file by clicking on the following link: [Download Lifestream Installer](https://drive.google.com/file/d/1nIkd2B33SWNDmx52lNxCo_Q8FhJ9_icL/view?usp=sharing)
-2. Once the download is complete, locate the downloaded file named `Install.rar`.
-3. Extract the contents of the `Install.rar` file to a desired location on your computer.
-4. Open the extracted folder and navigate to the "Install" folder.
-5. Inside the "Install" folder, you will find a file named `setup.exe`. Double-click on it to run the setup.
-6. Follow the on-screen instructions provided by the setup wizard to proceed with the installation. You may need to accept the terms and conditions, choose the installation directory, and select any additional settings as required.
-7. Once the installation process is complete, the Lifestream application will be downloaded and installed on your computer.
+1. Download the installation file from latest releases or by clicking on the following link: [Download Lifestream](https://github.com/MaizNadeem/Lifestream-WPF/releases/download/Lifestream-1.0.0/Lifestream-1.0.0.zip)
+2. Extract the contents of the `Lifestream-1.0.0.zip` file to a desired location on your computer.
+3. Inside, you will find a file named `setup.exe`. Double-click on it to run the setup.
 
 To uninstall Lifestream:
 
-1. Go to the "Apps & features" settings on your computer. You can access this by searching for "Apps & features" in the Windows search bar or by going to the Control Panel and selecting "Uninstall a program" (Windows 7).
-2. In the list of installed applications, locate "Lifestream" and click on it.
-3. Click on the "Uninstall" button and follow any prompts or instructions provided to complete the uninstallation process.
-By following these instructions, you should be able to install and uninstall Lifestream on your computer.
+1. Go to the "Apps & features" settings on your computer.
+2. In the list of installed applications, locate "Lifestream" and click uninstall.
 
 ## Screenshots
 Here are some screenshots of the Lifestream - Blood Bank System:
