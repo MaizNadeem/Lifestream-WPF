@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using WPFApp.Repositories;
 
 namespace WPFApp.ViewModels {
-    public abstract class ViewModelBase : INotifyPropertyChanged {
+    public abstract class ViewModelBase : RepositoryBase, INotifyPropertyChanged
+    {
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged (string propertyName) {

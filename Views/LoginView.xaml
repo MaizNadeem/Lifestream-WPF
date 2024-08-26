@@ -228,7 +228,7 @@
                     <Button x:Name="btnLogin"  
                             Command="{Binding LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                             BorderThickness="0"
-                            Content="LOG IN"
+                            Content="{Binding LoginButtonText}"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Gilroy"  

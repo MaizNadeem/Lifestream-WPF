@@ -79,17 +79,42 @@ namespace WPFApp.Repositories
 
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            bool validUser;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            bool validUser = false;
+            int maxRetries = 3;
+            int delay = 5000; // 5 seconds
+            int attempt = 0;
+
+            while (attempt < maxRetries)
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM [Staff] WHERE [username] = @username AND [password] = @password";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
-                validUser = (int)command.ExecuteScalar() > 0;
+                try
+                {
+                    using (var connection = GetConnection())
+                    using (var command = new SqlCommand())
+                    {
+                        connection.Open();
+                        command.Connection = connection;
+                        command.CommandText = "SELECT COUNT(*) FROM [Staff] WHERE [username] = @username AND [password] = @password";
+                        command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
+                        command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
+                        validUser = (int)command.ExecuteScalar() > 0;
+                    }
+                    break; // Exit loop if successful
+                }
+                catch (SqlException ex) when (ex.Number == -2) // SQL timeout
+                {
+                    attempt++;
+                    if (attempt >= maxRetries)
+                    {
+                        throw; // Rethrow exception if all retries fail
+                    }
+                    System.Threading.Thread.Sleep(delay); // Wait before retrying
+                }
+                catch
+                {
+                    throw; // Rethrow other exceptions
+                }
             }
+
             return validUser;
         }
 

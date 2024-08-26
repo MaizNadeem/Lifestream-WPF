@@ -14,8 +14,6 @@ namespace WPFApp.Repositories
         
         public RepositoryBase()
         {
-            // _connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
-            // _connectionString = ConfigurationManager.ConnectionStrings["AzureDbConnectionString"].ConnectionString;
             _connectionString = "AZURE_CONNECTION_STRING";
         }
 
