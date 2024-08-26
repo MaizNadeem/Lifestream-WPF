@@ -10,7 +10,7 @@ Detailed documentation for the Lifestream - Blood Bank System can be found [here
 
 ## Installation Instructions
 
-1. Download the installation file from latest releases or by clicking on the following link: [Download Lifestream](https://github.com/MaizNadeem/Lifestream-WPF/releases/download/Lifestream-1.0.0/Lifestream-1.0.0.zip)
+1. Download the installation file from latest releases or by clicking on the following link: [Download Lifestream](https://api.github.com/repos/MaizNadeem/Lifestream-WPF/releases/latest)
 2. Extract the contents of the `Lifestream-1.0.0.zip` file to a desired location on your computer.
 3. Inside, you will find a file named `setup.exe`. Double-click on it to run the setup.
 
