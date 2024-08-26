@@ -106,9 +106,6 @@ namespace WPFApp.ViewModels
             IsLoggingIn = true;
             ErrorMessage = string.Empty;
 
-            // Force the UI to update before the long-running task
-            Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Render);
-
             try
             {
                 var isValidUser = await Task.Run(() =>
@@ -117,14 +114,18 @@ namespace WPFApp.ViewModels
 
                 if (isValidUser)
                 {
-                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-                    var mainView = new MainView();
-                    mainView.Show();
-                    if (Application.Current.MainWindow != null)
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Application.Current.MainWindow.Close();
-                    }
-                    Application.Current.MainWindow = mainView;
+                        Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+
+                        var mainView = new MainView();
+                        mainView.Show();
+                        if (Application.Current.MainWindow != null)
+                        {
+                            Application.Current.MainWindow.Close();
+                        }
+                        Application.Current.MainWindow = mainView;
+                    });
                 }
                 else
                 {
@@ -136,7 +137,6 @@ namespace WPFApp.ViewModels
                 IsLoggingIn = false;
             }
         }
-
 
         private void ExecuteRecoverPassCommand(string username, string email)
         {

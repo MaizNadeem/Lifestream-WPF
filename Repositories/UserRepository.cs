@@ -80,7 +80,7 @@ namespace WPFApp.Repositories
         public bool AuthenticateUser(NetworkCredential credential)
         {
             bool validUser = false;
-            int maxRetries = 3;
+            int maxRetries = 5;
             int delay = 5000; // 5 seconds
             int attempt = 0;
 

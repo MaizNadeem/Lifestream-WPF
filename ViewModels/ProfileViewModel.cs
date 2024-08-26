@@ -9,6 +9,7 @@ using System.Threading;
 using Microsoft.Win32;
 using WPFApp.Views;
 using System.Windows;
+using System.Diagnostics;
 
 namespace WPFApp.ViewModels
 {

@@ -9,6 +9,9 @@ using WPFApp.Models;
 using WPFApp.Repositories;
 using System.Reflection;
 using WPFApp.Views;
+using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Security.Principal;
 
 namespace WPFApp.ViewModels
 {
@@ -101,6 +104,7 @@ namespace WPFApp.ViewModels
             CurrentUserAccount = new UserAccountModel();
 
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+            LoadCurrentUserData();
 
             //Initialize commands
             LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
@@ -130,7 +134,6 @@ namespace WPFApp.ViewModels
             //Default view
             ExecuteShowHomeViewCommand(null);
 
-            LoadCurrentUserData();
         }
         private void ExecuteLogoutCommand(object obj)
         {
@@ -217,10 +220,12 @@ namespace WPFApp.ViewModels
         }
         private void ExecuteShowProfileViewCommand(object obj)
         {
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(_currentUserAccount.Username), null);
             CurrentChildView = new ProfileViewModel();
             Caption = "Your Profile";
             Icon = IconChar.User;
         }
+
         private void ExecuteShowAccessDeniedViewCommand(object obj)
         {
             CurrentChildView = new AccessDeniedViewModel();
